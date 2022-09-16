@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "4268979578",
+    "project_id": "mmust-gdsc",
+    "storage_bucket": "mmust-gdsc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:4268979578:android:00933689367bdd354b52c3",
+        "android_client_info": {
+          "package_name": "com.test.mmustgdsc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "4268979578-rshmfafjpbb21mu5grqmfu7659uhhleb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3Lv_XSap3Wpw_kCaPaBUP8UIuszByxDI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "4268979578-rshmfafjpbb21mu5grqmfu7659uhhleb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
