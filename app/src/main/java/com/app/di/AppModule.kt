@@ -11,15 +11,15 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object AppModule {
-    @Provides
-    @Singleton
-    fun provideAuthenticationRepository() : AuthenticationRepository {
-        return
-    }
-
-    @Provides
-    @Singleton
-    fun providesProfileRepository() : ProfileRepository {
-        return
-    }
+//    @Provides
+//    @Singleton
+//    fun provideAuthenticationRepository() : AuthenticationRepository {
+//        return
+//    }
+//
+//    @Provides
+//    @Singleton
+//    fun providesProfileRepository() : ProfileRepository {
+//        return
+//    }
 }

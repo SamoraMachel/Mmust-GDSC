@@ -3,9 +3,12 @@ package com.domain.repository
 import com.domain.models.LoginDto
 import com.domain.models.ObserverDto
 import com.domain.models.RegistrationDto
+import kotlinx.coroutines.flow.StateFlow
 
 interface AuthenticationRepository {
-    fun loginUser(loginModel : LoginDto) : ObserverDto<Boolean>
+    suspend fun loginUser(loginModel : LoginDto) : StateFlow<ObserverDto<Boolean>>
 
-    fun registerUser(regModel : RegistrationDto) : ObserverDto<Boolean>
+    suspend fun registerUser(regModel : RegistrationDto) : StateFlow<ObserverDto<Boolean>>
+
+    suspend fun logoutUser() : StateFlow<ObserverDto<Boolean>>
 }

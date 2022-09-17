@@ -2,13 +2,14 @@ package com.domain.repository
 
 import com.domain.models.ObserverDto
 import com.domain.models.ProfileDto
+import kotlinx.coroutines.flow.StateFlow
 
 interface ProfileRepository {
-    fun getProfiles() : ObserverDto<List<ProfileDto>>
+    suspend fun getProfiles() : StateFlow<ObserverDto<List<ProfileDto>>>
 
-    fun getLeads() : ObserverDto<List<ProfileDto>>
+    suspend fun getLeads() : StateFlow<ObserverDto<List<ProfileDto>>>
 
-    fun getMember() : ObserverDto<List<ProfileDto>>
+    suspend fun getMember() : StateFlow<ObserverDto<List<ProfileDto>>>
 
-    fun getMemberByProfession(profession : String) : ObserverDto<List<ProfileDto>>
+    suspend fun getMemberByProfession(profession : String) : StateFlow<ObserverDto<List<ProfileDto>>>
 }
