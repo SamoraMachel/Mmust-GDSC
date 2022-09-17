@@ -1,5 +1,6 @@
 package com.data.repository
 
+import com.domain.models.LevelDto
 import com.domain.models.ObserverDto
 import com.domain.models.ResourceDto
 import com.domain.models.SessionDto
@@ -26,6 +27,7 @@ class ResourceRepositoryImpl @Inject constructor(
                         val resource = ResourceDto(
                             title = document["title"] as String,
                             link = document["link"] as String,
+                            track_title = document["track_title"] as String,
                             description = document["description"] as String,
                             level = document["level"] as String,
                             image = document["image"] as String?,
@@ -63,6 +65,7 @@ class ResourceRepositoryImpl @Inject constructor(
                         val resource = ResourceDto(
                             title = document["title"] as String,
                             link = document["link"] as String,
+                            track_title = document["track_title"] as String,
                             description = document["description"] as String,
                             level = document["level"] as String,
                             image = document["image"] as String?,
@@ -85,5 +88,37 @@ class ResourceRepositoryImpl @Inject constructor(
             resourceState.emit(ObserverDto.Failure(false, error.message))
         }
         return resourceState
+    }
+
+    override suspend fun getLevels(): StateFlow<ObserverDto<List<LevelDto>>> {
+        val levelState : MutableStateFlow<ObserverDto<List<LevelDto>>> = MutableStateFlow(ObserverDto.Loading())
+
+        try {
+            firebaseFirestore.collection("sessions")
+                .get()
+                .addOnSuccessListener { snapshot : QuerySnapshot ->
+                    val levelList : MutableList<LevelDto> = mutableListOf()
+                    snapshot.documents.forEach { document ->
+                        val level = LevelDto(
+                            title = document["title"] as String,
+                            description = document["description"] as String
+                        )
+                        levelList.add(level)
+                    }
+                    suspend {
+                        levelState.emit(ObserverDto.Success(levelList))
+                    }
+                }
+                .addOnFailureListener {
+                    suspend {
+                        levelState.emit(ObserverDto.Failure(false, it.message))
+                    }
+                }
+        } catch (error : IOException) {
+            levelState.emit(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+        } catch (error : Exception) {
+            levelState.emit(ObserverDto.Failure(false, error.message))
+        }
+        return levelState
     }
 }

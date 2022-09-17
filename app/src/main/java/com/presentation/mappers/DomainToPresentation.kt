@@ -38,3 +38,9 @@ fun TrackDto.toPresentation() : TrackPresentation {
         title, description, image
     )
 }
+
+fun LevelDto.toPresentation() : LevelPresentation {
+    return LevelPresentation(
+        title, description
+    )
+}
