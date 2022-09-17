@@ -2,9 +2,10 @@ package com.domain.repository
 
 import com.domain.models.ObserverDto
 import com.domain.models.SessionDto
+import kotlinx.coroutines.flow.StateFlow
 
 interface SessionRepository {
-    fun getUpcomingSession() : ObserverDto<List<SessionDto>>
+    suspend fun getUpcomingSession() : StateFlow<ObserverDto<List<SessionDto>>>
 
-    fun getPastSession() : ObserverDto<List<SessionDto>>
+    suspend fun getPastSession() : StateFlow<ObserverDto<List<SessionDto>>>
 }

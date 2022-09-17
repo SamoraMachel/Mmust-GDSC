@@ -2,9 +2,10 @@ package com.domain.repository
 
 import com.domain.models.ObserverDto
 import com.domain.models.ResourceDto
+import kotlinx.coroutines.flow.StateFlow
 
 interface ResourceRepository {
-    fun getResources() : ObserverDto<List<ResourceDto>>
+    suspend fun getResources() : StateFlow<ObserverDto<List<ResourceDto>>>
 
-    fun getResourceByLevel(level : String) : ObserverDto<List<ResourceDto>>
+    suspend fun getResourceByLevel(level : String) : StateFlow<ObserverDto<List<ResourceDto>>>
 }

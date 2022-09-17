@@ -5,6 +5,7 @@ data class Registration (
     val email : String,
     val password : String,
     val fullName : String,
+    val description : String?,
     val interests : List<String>,
     val title : String = "Member",
     val profession : String,
