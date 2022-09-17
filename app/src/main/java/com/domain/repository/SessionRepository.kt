@@ -1,9 +1,10 @@
 package com.domain.repository
 
+import com.domain.models.ObserverDto
 import com.domain.models.SessionDto
 
 interface SessionRepository {
-    fun getUpcomingSession() : List<SessionDto>
+    fun getUpcomingSession() : ObserverDto<List<SessionDto>>
 
-    fun getPastSession() : List<SessionDto>
+    fun getPastSession() : ObserverDto<List<SessionDto>>
 }

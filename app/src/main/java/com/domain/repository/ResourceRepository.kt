@@ -1,9 +1,10 @@
 package com.domain.repository
 
+import com.domain.models.ObserverDto
 import com.domain.models.ResourceDto
 
 interface ResourceRepository {
-    fun getResources() : List<ResourceDto>
+    fun getResources() : ObserverDto<List<ResourceDto>>
 
-    fun getResourceByLevel(level : String) : List<ResourceDto>
+    fun getResourceByLevel(level : String) : ObserverDto<List<ResourceDto>>
 }

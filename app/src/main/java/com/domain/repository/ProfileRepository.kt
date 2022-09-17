@@ -1,13 +1,14 @@
 package com.domain.repository
 
+import com.domain.models.ObserverDto
 import com.domain.models.ProfileDto
 
 interface ProfileRepository {
-    fun getProfiles() : List<ProfileDto>
+    fun getProfiles() : ObserverDto<List<ProfileDto>>
 
-    fun getLeads() : List<ProfileDto>
+    fun getLeads() : ObserverDto<List<ProfileDto>>
 
-    fun getMember() : List<ProfileDto>
+    fun getMember() : ObserverDto<List<ProfileDto>>
 
-    fun getMemberByProfession(profession : String) : List<ProfileDto>
+    fun getMemberByProfession(profession : String) : ObserverDto<List<ProfileDto>>
 }
