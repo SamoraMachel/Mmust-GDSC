@@ -1,4 +1,7 @@
 package com.domain.models
 
-class TrackDto {
-}
+data class TrackDto(
+    val title : String,
+    val description : String,
+    val image : String
+)

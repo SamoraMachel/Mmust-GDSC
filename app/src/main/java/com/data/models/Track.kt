@@ -1,4 +1,7 @@
 package com.data.models
 
-class Track {
-}
+data class Track(
+    val title : String,
+    val description : String,
+    val image : String
+)

@@ -7,6 +7,7 @@ fun Resource.toDomain() : ResourceDto {
     return ResourceDto(
         title,
         link,
+        track_title,
         description,
         level,
         image,
@@ -60,5 +61,13 @@ fun Registration.toDomain() : RegistrationDto {
         github,
         behance,
         dribble
+    )
+}
+
+fun Track.toDomain() : TrackDto {
+    return TrackDto(
+        title,
+        description,
+        image
     )
 }
