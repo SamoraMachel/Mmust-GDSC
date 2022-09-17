@@ -1,6 +1,6 @@
-package com.data.models
+package com.domain.models
 
-data class Registration (
+data class RegistrationDto(
     val profileImage: String,
     val email : String,
     val password : String,
