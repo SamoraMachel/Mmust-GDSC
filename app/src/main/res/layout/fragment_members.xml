@@ -19,13 +19,11 @@
         app:tabTextColor="#909090">
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/membersLeadTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Leads" />
 
         <com.google.android.material.tabs.TabItem
-            android:id="@+id/membersMemberTab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Members" />
@@ -38,7 +36,8 @@
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/membersTabLayout" />
+        app:layout_constraintTop_toBottomOf="@+id/membersTabLayout"
+        app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>

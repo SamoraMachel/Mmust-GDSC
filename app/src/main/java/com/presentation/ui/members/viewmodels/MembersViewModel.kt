@@ -22,6 +22,9 @@ class MembersViewModel @Inject constructor(
     private val _leadDataList : MutableStateFlow<MemberUIState> = MutableStateFlow(MemberUIState.StandBy)
     val leadDataList : LiveData<MemberUIState> get() = _leadDataList.asLiveData()
 
+    private val _memberDataList: MutableStateFlow<MemberUIState> = MutableStateFlow(MemberUIState.StandBy)
+    val memberDataList: LiveData<MemberUIState> get() = _memberDataList.asLiveData()
+
     init {
         getLeads()
         getMembers()
@@ -30,11 +33,11 @@ class MembersViewModel @Inject constructor(
     private fun getLeads() = viewModelScope.launch{
         fetchLeadProfileUseCase().collect { observer ->
             when(observer) {
-                is ObserverDto.Failure -> _leadDataList.value = MemberUIState.Failure(observer.message)
                 is ObserverDto.Loading -> _leadDataList.value = MemberUIState.Loading
+                is ObserverDto.Failure -> _leadDataList.value = MemberUIState.Failure(observer.message)
                 is ObserverDto.Success -> {
-                    val memberPresentation = observer.data?.map { data -> data.toPresentation() }
-                    _leadDataList.value = MemberUIState.Success(memberPresentation)
+                    val membersPresentation = observer.data?.map { data -> data.toPresentation() }
+                    _leadDataList.value = MemberUIState.Success(membersPresentation)
                 }
             }
         }
@@ -43,11 +46,11 @@ class MembersViewModel @Inject constructor(
     private fun getMembers() = viewModelScope.launch {
         fetchMemberProfileUseCase().collect { observer ->
             when(observer) {
-                is ObserverDto.Failure -> _leadDataList.value = MemberUIState.Failure(observer.message)
-                is ObserverDto.Loading -> _leadDataList.value = MemberUIState.Loading
+                is ObserverDto.Loading -> _memberDataList.value = MemberUIState.Loading
+                is ObserverDto.Failure -> _memberDataList.value = MemberUIState.Failure(observer.message)
                 is ObserverDto.Success -> {
-                    val memberPresentation = observer.data?.map { data -> data.toPresentation() }
-                    _leadDataList.value = MemberUIState.Success(memberPresentation)
+                    val membersPresentation = observer.data?.map { data -> data.toPresentation() }
+                    _memberDataList.value = MemberUIState.Success(membersPresentation)
                 }
             }
         }

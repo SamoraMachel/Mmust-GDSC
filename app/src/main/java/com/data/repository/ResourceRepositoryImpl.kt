@@ -9,16 +9,17 @@ import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 
 class ResourceRepositoryImpl @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore
 ): ResourceRepository{
-    override suspend fun getResources(): Flow<ObserverDto<List<ResourceDto>>> {
-        val resourceState : MutableStateFlow<ObserverDto<List<ResourceDto>>> = MutableStateFlow(ObserverDto.Loading())
-
+    override suspend fun getResources(): Flow<ObserverDto<List<ResourceDto>>> = channelFlow {
         try {
+            send(ObserverDto.Loading())
             firebaseFirestore.collection("sessions")
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
@@ -35,27 +36,25 @@ class ResourceRepositoryImpl @Inject constructor(
                         )
                         resourceList.add(resource)
                     }
-                    suspend {
-                        resourceState.emit(ObserverDto.Success(resourceList))
+                    launch {
+                        send(ObserverDto.Success(resourceList))
                     }
                 }
                 .addOnFailureListener {
-                    suspend {
-                        resourceState.emit(ObserverDto.Failure(false, it.message))
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
                     }
                 }
         } catch (error : IOException) {
-            resourceState.emit(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
         } catch (error : Exception) {
-            resourceState.emit(ObserverDto.Failure(false, error.message))
+            send(ObserverDto.Failure(false, error.message))
         }
-        return resourceState
     }
 
-    override suspend fun getResourceByLevel(level: String): Flow<ObserverDto<List<ResourceDto>>> {
-        val resourceState : MutableStateFlow<ObserverDto<List<ResourceDto>>> = MutableStateFlow(ObserverDto.Loading())
-
+    override suspend fun getResourceByLevel(level: String): Flow<ObserverDto<List<ResourceDto>>> = channelFlow {
         try {
+            send(ObserverDto.Loading())
             firebaseFirestore.collection("sessions")
                 .whereEqualTo("level", level)
                 .get()
@@ -73,27 +72,25 @@ class ResourceRepositoryImpl @Inject constructor(
                         )
                         resourceList.add(resource)
                     }
-                    suspend {
-                        resourceState.emit(ObserverDto.Success(resourceList))
+                    launch {
+                        send(ObserverDto.Success(resourceList))
                     }
                 }
                 .addOnFailureListener {
-                    suspend {
-                        resourceState.emit(ObserverDto.Failure(false, it.message))
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
                     }
                 }
         } catch (error : IOException) {
-            resourceState.emit(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
         } catch (error : Exception) {
-            resourceState.emit(ObserverDto.Failure(false, error.message))
+            send(ObserverDto.Failure(false, error.message))
         }
-        return resourceState
     }
 
-    override suspend fun getLevels(): Flow<ObserverDto<List<LevelDto>>> {
-        val levelState : MutableStateFlow<ObserverDto<List<LevelDto>>> = MutableStateFlow(ObserverDto.Loading())
-
+    override suspend fun getLevels(): Flow<ObserverDto<List<LevelDto>>> = channelFlow {
         try {
+            send(ObserverDto.Loading())
             firebaseFirestore.collection("sessions")
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
@@ -105,20 +102,19 @@ class ResourceRepositoryImpl @Inject constructor(
                         )
                         levelList.add(level)
                     }
-                    suspend {
-                        levelState.emit(ObserverDto.Success(levelList))
+                    launch {
+                        send(ObserverDto.Success(levelList))
                     }
                 }
                 .addOnFailureListener {
-                    suspend {
-                        levelState.emit(ObserverDto.Failure(false, it.message))
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
                     }
                 }
         } catch (error : IOException) {
-            levelState.emit(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
         } catch (error : Exception) {
-            levelState.emit(ObserverDto.Failure(false, error.message))
+            send(ObserverDto.Failure(false, error.message))
         }
-        return levelState
     }
 }

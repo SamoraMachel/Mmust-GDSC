@@ -6,9 +6,8 @@ import com.domain.models.RegistrationDto
 import com.domain.repository.AuthenticationRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.*
+import kotlinx.coroutines.launch
 import java.io.IOException
 import javax.inject.Inject
 
@@ -16,32 +15,31 @@ class AuthenticationRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseFirestore: FirebaseFirestore
 ) : AuthenticationRepository {
-    override suspend fun loginUser(loginModel: LoginDto): Flow<ObserverDto<Boolean>> {
-        val loginState : MutableStateFlow<ObserverDto<Boolean>> = MutableStateFlow(ObserverDto.Loading())
+    override suspend fun loginUser(loginModel: LoginDto): Flow<ObserverDto<Boolean>> = channelFlow {
         try {
+            send(ObserverDto.Loading())
             firebaseAuth.signInWithEmailAndPassword(loginModel.email, loginModel.password)
                 .addOnSuccessListener {
-                    suspend {
-                        loginState.emit(ObserverDto.Success(true))
+                    launch {
+                        send(ObserverDto.Success(true))
                     }
                 }
                 .addOnFailureListener {
-                    suspend {
-                        loginState.emit(ObserverDto.Failure(false, it.message))
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
                     }
                 }
 
         } catch (error : IOException) {
-            loginState.emit(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
         } catch (error : Exception) {
-            loginState.emit(ObserverDto.Failure(false, error.message))
+            send(ObserverDto.Failure(false, error.message))
         }
-        return loginState
     }
 
-    override suspend fun registerUser(regModel: RegistrationDto): Flow<ObserverDto<Boolean>> {
-        val registrationState : MutableStateFlow<ObserverDto<Boolean>> = MutableStateFlow(ObserverDto.Loading())
+    override suspend fun registerUser(regModel: RegistrationDto): Flow<ObserverDto<Boolean>> = channelFlow {
         try {
+            send(ObserverDto.Loading())
             firebaseAuth.signInWithEmailAndPassword(regModel.email, regModel.password)
                 .addOnSuccessListener {
                     val userProfile = hashMapOf(
@@ -61,40 +59,38 @@ class AuthenticationRepositoryImpl @Inject constructor(
                     firebaseFirestore.collection("profiles")
                         .add(userProfile)
                         .addOnSuccessListener {
-                            suspend {
-                                registrationState.emit(ObserverDto.Success(true))
+                            launch {
+                                send(ObserverDto.Success(true))
                             }
                         }
                         .addOnFailureListener {
-                            suspend {
-                                registrationState.emit(ObserverDto.Failure(false, it.message))
+                            launch {
+                                send(ObserverDto.Failure(false, it.message))
                             }
                         }
                 }
                 .addOnFailureListener {
-                    suspend {
-                        registrationState.emit(ObserverDto.Failure(false, it.message))
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
                     }
                 }
 
         } catch (error : IOException) {
-            registrationState.emit(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
         } catch (error : Exception) {
-            registrationState.emit(ObserverDto.Failure(false, error.message))
+            send(ObserverDto.Failure(false, error.message))
         }
-        return registrationState
     }
 
-    override suspend fun logoutUser(): Flow<ObserverDto<Boolean>> {
-        val logoutState : MutableStateFlow<ObserverDto<Boolean>> = MutableStateFlow(ObserverDto.Loading())
+    override suspend fun logoutUser(): Flow<ObserverDto<Boolean>> = flow {
+        emit(ObserverDto.Loading())
         try {
             firebaseAuth.signOut()
-            logoutState.emit(ObserverDto.Success(true))
+            emit(ObserverDto.Success(true))
         } catch (error : IOException) {
-            logoutState.emit(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            emit(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
         } catch (error : Exception) {
-            logoutState.emit(ObserverDto.Failure(false, error.message))
+            emit(ObserverDto.Failure(false, error.message))
         }
-        return logoutState
     }
 }
