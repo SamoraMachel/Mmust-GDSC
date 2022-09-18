@@ -1,26 +1,29 @@
 package com.data.repository
 
+import android.util.Log
 import com.domain.models.ObserverDto
 import com.domain.models.TrackDto
 import com.domain.repository.TrackRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.awaitClose
+import kotlinx.coroutines.flow.*
 import java.io.IOException
 import javax.inject.Inject
 
 class TrackRepositoryImpl @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore
 ) : TrackRepository{
-    override suspend fun getTracks(): StateFlow<ObserverDto<List<TrackDto>>> {
-        val trackState : MutableStateFlow<ObserverDto<List<TrackDto>>> = MutableStateFlow(ObserverDto.Loading())
+    private val TAG : String = "TrackRepository"
 
+    override suspend fun getTracks(): Flow<ObserverDto<List<TrackDto>>> = channelFlow {
+        val trackList : MutableList<TrackDto> = mutableListOf()
         try {
+            send(ObserverDto.Loading())
             firebaseFirestore.collection("tracks")
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
-                    val trackList : MutableList<TrackDto> = mutableListOf()
                     snapshot.documents.forEach { document ->
                         val track = TrackDto(
                             title = document["title"] as String,
@@ -28,21 +31,25 @@ class TrackRepositoryImpl @Inject constructor(
                             image = document["image"] as String
                         )
                         trackList.add(track)
-                    }
-                    suspend {
-                        trackState.emit(ObserverDto.Success(trackList))
-                    }
-                }
-                .addOnFailureListener {
-                    suspend {
-                        trackState.emit(ObserverDto.Failure(false, it.message))
+
+                        launch {
+                            send(ObserverDto.Success(trackList))
+                        }
                     }
                 }
+                .addOnFailureListener { error ->
+                    launch {
+                        send(ObserverDto.Failure(false, error.message))
+                    }
+                }
+
         } catch (error : IOException) {
-            trackState.emit(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            Log.d(TAG, "IOError -> getTracks: ${error.message}")
         } catch (error : Exception) {
-            trackState.emit(ObserverDto.Failure(false, error.message))
+            send(ObserverDto.Failure(false, error.message))
+            Log.d(TAG, "General Error -> getTracks: ${error.message}")
         }
-        return trackState
+        awaitClose()
     }
 }

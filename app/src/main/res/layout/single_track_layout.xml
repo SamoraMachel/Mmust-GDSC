@@ -49,6 +49,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:fontFamily="@font/roboto"
+                android:maxLines="3"
                 android:text="Building tutorials with lots examples of how to use HTML, CSS, JavaScrip"
                 android:textColor="#545454" />
         </LinearLayout>
