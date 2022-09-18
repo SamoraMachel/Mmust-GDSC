@@ -27,8 +27,8 @@ fun ResourceDto.toPresentation() : ResourcePresentation {
     )
 }
 
-fun SessionDto.toPresentation() : SessionPresentation {
-    return SessionPresentation(
+fun EventDto.toPresentation() : EventPresentation {
+    return EventPresentation(
         title, description, link, date
     )
 }

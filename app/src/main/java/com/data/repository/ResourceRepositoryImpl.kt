@@ -3,7 +3,6 @@ package com.data.repository
 import com.domain.models.LevelDto
 import com.domain.models.ObserverDto
 import com.domain.models.ResourceDto
-import com.domain.models.SessionDto
 import com.domain.repository.ResourceRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot

@@ -15,8 +15,8 @@ fun Resource.toDomain() : ResourceDto {
     )
 }
 
-fun Session.toDomain() : SessionDto {
-    return SessionDto(
+fun Event.toDomain() : EventDto {
+    return EventDto(
         title,
         description,
         link,

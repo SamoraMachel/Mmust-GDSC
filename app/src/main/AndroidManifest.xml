@@ -4,6 +4,7 @@
     package="com.test.mmustgdsc">
 
     <application
+        android:name="com.presentation.BaseApplication"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -14,12 +15,11 @@
         android:theme="@style/Theme.MMUSTGDSC"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
+            android:name="com.presentation.ui.home.HomeActivity"
             android:exported="false" />
         <activity
             android:name="com.presentation.ui.MainActivity"
             android:exported="true"
-            android:label="@string/title_activity_main"
             android:theme="@style/Theme.MMUSTGDSC.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

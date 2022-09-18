@@ -33,8 +33,8 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesSessionRepository(firebaseFirestore: FirebaseFirestore) : SessionRepository {
-        return SessionRepositoryImpl(firebaseFirestore)
+    fun providesEventRepository(firebaseFirestore: FirebaseFirestore) : EventRepository {
+        return EventRepositoryImpl(firebaseFirestore)
     }
 
     @Provides

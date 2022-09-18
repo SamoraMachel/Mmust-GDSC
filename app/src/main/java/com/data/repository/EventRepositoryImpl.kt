@@ -1,31 +1,29 @@
 package com.data.repository
 
 import com.domain.models.ObserverDto
-import com.domain.models.ProfileDto
-import com.domain.models.SessionDto
-import com.domain.repository.SessionRepository
+import com.domain.models.EventDto
+import com.domain.repository.EventRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
-import com.google.type.DateTime
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.io.IOException
 import javax.inject.Inject
 
-class SessionRepositoryImpl @Inject constructor(
+class EventRepositoryImpl @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore
-) : SessionRepository {
-    override suspend fun getUpcomingSession(): StateFlow<ObserverDto<List<SessionDto>>> {
-        val sessionState : MutableStateFlow<ObserverDto<List<SessionDto>>> = MutableStateFlow(ObserverDto.Loading())
+) : EventRepository {
+    override suspend fun getUpcomingSession(): StateFlow<ObserverDto<List<EventDto>>> {
+        val sessionState : MutableStateFlow<ObserverDto<List<EventDto>>> = MutableStateFlow(ObserverDto.Loading())
 
         try {
             firebaseFirestore.collection("sessions")
                 .whereGreaterThan("date", "")
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
-                    val sessionList : MutableList<SessionDto> = mutableListOf()
+                    val sessionList : MutableList<EventDto> = mutableListOf()
                     snapshot.documents.forEach { document ->
-                        val session = SessionDto(
+                        val session = EventDto(
                             title = document["title"] as String,
                             description = document["description"] as String,
                             link = document["link"] as String,
@@ -50,17 +48,17 @@ class SessionRepositoryImpl @Inject constructor(
         return sessionState
     }
 
-    override suspend fun getPastSession(): StateFlow<ObserverDto<List<SessionDto>>> {
-        val sessionState : MutableStateFlow<ObserverDto<List<SessionDto>>> = MutableStateFlow(ObserverDto.Loading())
+    override suspend fun getPastSession(): StateFlow<ObserverDto<List<EventDto>>> {
+        val sessionState : MutableStateFlow<ObserverDto<List<EventDto>>> = MutableStateFlow(ObserverDto.Loading())
 
         try {
             firebaseFirestore.collection("sessions")
                 .whereLessThan("date", "")
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
-                    val sessionList : MutableList<SessionDto> = mutableListOf()
+                    val sessionList : MutableList<EventDto> = mutableListOf()
                     snapshot.documents.forEach { document ->
-                        val session = SessionDto(
+                        val session = EventDto(
                             title = document["title"] as String,
                             description = document["description"] as String,
                             link = document["link"] as String,

@@ -1,6 +1,6 @@
 package com.presentation.models
 
-data class SessionPresentation(
+data class EventPresentation(
     val title : String,
     val description : String,
     val link : String,

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">MMUST GDSC</string>
+    <string name="app_name">GDSC</string>
 
     <string name="bottomNavHome">Home</string>
     <string name="bottomNavSession">Sessions</string>
@@ -7,4 +7,5 @@
     <string name="bottomNavMembers">Members</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="login">Log In</string>
 </resources>

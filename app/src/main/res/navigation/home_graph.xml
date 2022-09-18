@@ -10,4 +10,9 @@
         android:name="com.presentation.ui.home.TrackFragment"
         android:label="fragment_track"
         tools:layout="@layout/fragment_track" />
+    <fragment
+        android:id="@+id/membersFragment"
+        android:name="com.presentation.ui.members.MembersFragment"
+        android:label="fragment_members"
+        tools:layout="@layout/fragment_members" />
 </navigation>

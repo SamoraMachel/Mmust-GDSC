@@ -1,7 +1,6 @@
 package com.data.repository
 
 import com.domain.models.ObserverDto
-import com.domain.models.SessionDto
 import com.domain.models.TrackDto
 import com.domain.repository.TrackRepository
 import com.google.firebase.firestore.FirebaseFirestore

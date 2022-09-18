@@ -1,6 +1,6 @@
 package com.domain.models
 
-data class SessionDto(
+data class EventDto(
     val title : String,
     val description : String,
     val link : String,
