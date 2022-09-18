@@ -10,6 +10,8 @@ interface ProfileRepository {
 
     suspend fun getLeads() : Flow<ObserverDto<List<ProfileDto>>>
 
+    suspend fun getLead(id : String) : Flow<ObserverDto<ProfileDto>>
+
     suspend fun getMember() : Flow<ObserverDto<List<ProfileDto>>>
 
     suspend fun getMemberByProfession(profession : String) : Flow<ObserverDto<List<ProfileDto>>>

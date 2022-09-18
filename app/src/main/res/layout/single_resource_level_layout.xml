@@ -6,14 +6,13 @@
     android:layout_height="wrap_content">
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/level_card"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="4dp"
         android:layout_marginBottom="4dp"
-        app:cardBackgroundColor="#D1C4E9"
-        app:cardCornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,36 +22,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:padding="12dp">
-
-            <ImageView
-                android:id="@+id/track_image"
-                android:layout_width="55dp"
-                android:layout_height="55dp"
-                android:layout_marginTop="14dp"
-                tools:srcCompat="@tools:sample/avatars" />
+            android:padding="24dp">
 
             <TextView
-                android:id="@+id/track_title"
+                android:id="@+id/level_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="4dp"
                 android:fontFamily="@font/roboto"
-                android:text="Android Development"
-                android:textColor="@color/black"
-                android:textSize="15dp"
-                android:textStyle="bold" />
+                android:textSize="16sp"
+                tools:text=" Beginner Level" />
 
             <TextView
-                android:id="@+id/track_description"
+                android:id="@+id/level_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="13dp"
-                android:fontFamily="@font/roboto"
-                android:maxLines="3"
-                android:text="Building tutorials with lots examples of how to use HTML, CSS, JavaScrip"
-                android:textColor="#545454" />
+                tools:text="Building tutorials with examples of how to use HTML, CSS, JavaScrip" />
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 </androidx.constraintlayout.widget.ConstraintLayout>

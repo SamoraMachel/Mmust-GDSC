@@ -4,6 +4,7 @@ import android.system.Os
 import com.domain.models.ObserverDto
 import com.domain.models.ProfileDto
 import com.domain.repository.ProfileRepository
+import com.google.firebase.firestore.DocumentSnapshot
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
 import kotlinx.coroutines.channels.awaitClose
@@ -81,6 +82,42 @@ class ProfileRepositoryImpl @Inject constructor(
                     }
                     launch {
                         send(ObserverDto.Success(profileList))
+                    }
+                }
+                .addOnFailureListener {
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
+                    }
+                }
+        } catch (error : IOException) {
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+        } catch (error : Exception) {
+            send(ObserverDto.Failure(false, error.message))
+        }
+        awaitClose()
+    }
+
+    override suspend fun getLead(id: String): Flow<ObserverDto<ProfileDto>> = channelFlow {
+        try {
+            send(ObserverDto.Loading())
+            firebaseFirestore.collection("profiles").document(id)
+                .get()
+                .addOnSuccessListener { snapshot : DocumentSnapshot ->
+                    val profile = ProfileDto(
+                        profileImage = snapshot["profileImage"] as String,
+                        name = snapshot["name"] as String,
+                        title = snapshot["title"] as String,
+                        profession = snapshot["profession"] as String,
+                        description = snapshot["description"] as String,
+                        twitter = snapshot["twitter"] as String?,
+                        linkedin = snapshot["linkedIn"] as String?,
+                        github = snapshot["github"] as String?,
+                        behance = snapshot["behance"] as String?,
+                        dribble = snapshot["dribble"] as String?
+                    )
+
+                    launch {
+                        send(ObserverDto.Success(profile))
                     }
                 }
                 .addOnFailureListener {

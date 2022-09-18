@@ -28,7 +28,9 @@ class TrackRepositoryImpl @Inject constructor(
                         val track = TrackDto(
                             title = document["title"] as String,
                             description = document["description"] as String,
-                            image = document["image"] as String
+                            image = document["image"] as String,
+                            levels = document["levels"] as Map<String, String>,
+                            lead = document["lead"] as String,
                         )
                         trackList.add(track)
 
