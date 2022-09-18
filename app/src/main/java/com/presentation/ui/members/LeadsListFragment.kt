@@ -11,12 +11,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.members.adapters.MembersAdapter
 import com.presentation.ui.members.viewmodels.MembersViewModel
 import com.presentation.ui.states.MemberUIState
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.FragmentMemberListBinding
+import com.test.mmustgdsc.databinding.FragmentLeadsListBinding
 
 
-class MemberListFragment : Fragment() {
-    private var _binding : FragmentMemberListBinding? = null
+class LeadsListFragment : Fragment() {
+    private var _binding : FragmentLeadsListBinding? = null
     private val binding get() = _binding!!
 
     private val membersViewModel : MembersViewModel by activityViewModels()
@@ -29,10 +28,10 @@ class MemberListFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        _binding = FragmentMemberListBinding.inflate(inflater, container, false)
+        _binding = FragmentLeadsListBinding.inflate(inflater, container, false)
 
-        binding.membersRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        loadMembers()
+        binding.leadsRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+        loadLeads()
 
         return binding.root
     }
@@ -42,18 +41,18 @@ class MemberListFragment : Fragment() {
         _binding = null
     }
 
-    private fun loadMembers() {
-        membersViewModel.memberDataList.observe(viewLifecycleOwner) { memberState ->
+    private fun loadLeads() {
+        membersViewModel.leadDataList.observe(viewLifecycleOwner) { memberState ->
             when(memberState) {
                 is MemberUIState.Failure -> {
-                    binding.membersLoader.visibility = View.GONE
+                    binding.leadsLoader.visibility = View.GONE
                     showSnackBar("Could not get leads.\n${memberState.message}")
                 }
-                MemberUIState.Loading -> binding.membersLoader.visibility = View.VISIBLE
+                MemberUIState.Loading -> binding.leadsLoader.visibility = View.VISIBLE
                 MemberUIState.StandBy -> Unit
                 is MemberUIState.Success -> {
-                    binding.membersLoader.visibility = View.GONE
-                    binding.membersRecyclerView.adapter = memberState.data?.let { MembersAdapter(it) }
+                    binding.leadsLoader.visibility = View.GONE
+                    binding.leadsRecyclerView.adapter = memberState.data?.let { MembersAdapter(it) }
                 }
             }
         }
@@ -66,4 +65,5 @@ class MemberListFragment : Fragment() {
         }
         snackbar.show()
     }
+
 }
