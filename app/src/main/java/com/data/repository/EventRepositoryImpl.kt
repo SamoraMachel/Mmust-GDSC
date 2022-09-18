@@ -5,6 +5,7 @@ import com.domain.models.EventDto
 import com.domain.repository.EventRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.io.IOException
@@ -13,7 +14,7 @@ import javax.inject.Inject
 class EventRepositoryImpl @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore
 ) : EventRepository {
-    override suspend fun getUpcomingSession(): StateFlow<ObserverDto<List<EventDto>>> {
+    override suspend fun getUpcomingSession(): Flow<ObserverDto<List<EventDto>>> {
         val sessionState : MutableStateFlow<ObserverDto<List<EventDto>>> = MutableStateFlow(ObserverDto.Loading())
 
         try {
@@ -48,7 +49,7 @@ class EventRepositoryImpl @Inject constructor(
         return sessionState
     }
 
-    override suspend fun getPastSession(): StateFlow<ObserverDto<List<EventDto>>> {
+    override suspend fun getPastSession(): Flow<ObserverDto<List<EventDto>>> {
         val sessionState : MutableStateFlow<ObserverDto<List<EventDto>>> = MutableStateFlow(ObserverDto.Loading())
 
         try {

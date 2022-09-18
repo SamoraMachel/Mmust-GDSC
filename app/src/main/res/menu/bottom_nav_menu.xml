@@ -2,7 +2,7 @@
 <menu xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <item
-        android:id="@+id/dashboard"
+        android:id="@+id/trackFragment"
         android:icon="@drawable/dashboard"
         android:title="@string/bottomNavHome"
         android:visible="true" />
@@ -19,7 +19,7 @@
         android:title="@string/bottomNavEvents" />
 
     <item
-        android:id="@+id/members"
+        android:id="@+id/membersFragment"
         android:icon="@drawable/members"
         android:title="@string/bottomNavMembers"
         app:showAsAction="withText" />

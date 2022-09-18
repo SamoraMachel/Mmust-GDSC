@@ -6,6 +6,7 @@ import com.domain.models.RegistrationDto
 import com.domain.repository.AuthenticationRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.io.IOException
@@ -15,7 +16,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
     private val firebaseAuth: FirebaseAuth,
     private val firebaseFirestore: FirebaseFirestore
 ) : AuthenticationRepository {
-    override suspend fun loginUser(loginModel: LoginDto): StateFlow<ObserverDto<Boolean>> {
+    override suspend fun loginUser(loginModel: LoginDto): Flow<ObserverDto<Boolean>> {
         val loginState : MutableStateFlow<ObserverDto<Boolean>> = MutableStateFlow(ObserverDto.Loading())
         try {
             firebaseAuth.signInWithEmailAndPassword(loginModel.email, loginModel.password)
@@ -38,7 +39,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
         return loginState
     }
 
-    override suspend fun registerUser(regModel: RegistrationDto): StateFlow<ObserverDto<Boolean>> {
+    override suspend fun registerUser(regModel: RegistrationDto): Flow<ObserverDto<Boolean>> {
         val registrationState : MutableStateFlow<ObserverDto<Boolean>> = MutableStateFlow(ObserverDto.Loading())
         try {
             firebaseAuth.signInWithEmailAndPassword(regModel.email, regModel.password)
@@ -84,7 +85,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
         return registrationState
     }
 
-    override suspend fun logoutUser(): StateFlow<ObserverDto<Boolean>> {
+    override suspend fun logoutUser(): Flow<ObserverDto<Boolean>> {
         val logoutState : MutableStateFlow<ObserverDto<Boolean>> = MutableStateFlow(ObserverDto.Loading())
         try {
             firebaseAuth.signOut()

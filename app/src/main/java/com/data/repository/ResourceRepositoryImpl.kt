@@ -6,6 +6,7 @@ import com.domain.models.ResourceDto
 import com.domain.repository.ResourceRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import java.io.IOException
@@ -14,7 +15,7 @@ import javax.inject.Inject
 class ResourceRepositoryImpl @Inject constructor(
     private val firebaseFirestore: FirebaseFirestore
 ): ResourceRepository{
-    override suspend fun getResources(): StateFlow<ObserverDto<List<ResourceDto>>> {
+    override suspend fun getResources(): Flow<ObserverDto<List<ResourceDto>>> {
         val resourceState : MutableStateFlow<ObserverDto<List<ResourceDto>>> = MutableStateFlow(ObserverDto.Loading())
 
         try {
@@ -51,7 +52,7 @@ class ResourceRepositoryImpl @Inject constructor(
         return resourceState
     }
 
-    override suspend fun getResourceByLevel(level: String): StateFlow<ObserverDto<List<ResourceDto>>> {
+    override suspend fun getResourceByLevel(level: String): Flow<ObserverDto<List<ResourceDto>>> {
         val resourceState : MutableStateFlow<ObserverDto<List<ResourceDto>>> = MutableStateFlow(ObserverDto.Loading())
 
         try {
@@ -89,7 +90,7 @@ class ResourceRepositoryImpl @Inject constructor(
         return resourceState
     }
 
-    override suspend fun getLevels(): StateFlow<ObserverDto<List<LevelDto>>> {
+    override suspend fun getLevels(): Flow<ObserverDto<List<LevelDto>>> {
         val levelState : MutableStateFlow<ObserverDto<List<LevelDto>>> = MutableStateFlow(ObserverDto.Loading())
 
         try {
