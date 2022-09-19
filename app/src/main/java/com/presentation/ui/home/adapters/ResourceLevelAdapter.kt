@@ -4,18 +4,22 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.presentation.models.LevelPresentation
+import com.presentation.ui.home.ResourceLevelFragmentDirections
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.SingleResourceLevelLayoutBinding
 
 class ResourceLevelAdapter(
-    private val levels : List<LevelPresentation>
+    private val levels : List<LevelPresentation>,
+    private val track : String
 ) : RecyclerView.Adapter<ResourceLevelAdapter.ViewHolder>() {
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val binding = SingleResourceLevelLayoutBinding.bind(itemView)
 
-        fun setup(level : LevelPresentation) {
+        fun setup(level : LevelPresentation, track: String) {
             binding.levelTitle.text = level.title
             binding.levelDescription.text = level.description
 
@@ -32,6 +36,16 @@ class ResourceLevelAdapter(
                 binding.levelTitle.setTextColor(Color.WHITE)
                 binding.levelDescription.setTextColor(Color.WHITE)
             }
+
+            binding.levelCard.setOnClickListener {
+                openResource(level, track)
+            }
+        }
+
+        private fun openResource(level : LevelPresentation, track : String) {
+            val navController = binding.root.findNavController()
+            val action = ResourceLevelFragmentDirections.actionResourceLevelFragmentToResourceFragment(level, track)
+            navController.navigate(action)
         }
     }
 
@@ -46,7 +60,7 @@ class ResourceLevelAdapter(
     override fun onBindViewHolder(holder: ResourceLevelAdapter.ViewHolder, position: Int) {
         val level = levels[position]
 
-        holder.setup(level)
+        holder.setup(level, track)
     }
 
     override fun getItemCount(): Int {

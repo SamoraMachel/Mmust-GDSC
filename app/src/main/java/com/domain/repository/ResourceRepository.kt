@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.StateFlow
 interface ResourceRepository {
     suspend fun getResources() : Flow<ObserverDto<List<ResourceDto>>>
 
-    suspend fun getResourceByLevel(level : String) : Flow<ObserverDto<List<ResourceDto>>>
+    suspend fun getResourceByLevel(level : String, track: String) : Flow<ObserverDto<List<ResourceDto>>>
 
     suspend fun getLevels() : Flow<ObserverDto<List<LevelDto>>>
 }

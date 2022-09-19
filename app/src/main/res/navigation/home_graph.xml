@@ -27,5 +27,20 @@
         <argument
             android:name="track"
             app:argType="com.presentation.models.TrackPresentation" />
+        <action
+            android:id="@+id/action_resourceLevelFragment_to_resourceFragment"
+            app:destination="@id/resourceFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/resourceFragment"
+        android:name="com.presentation.ui.home.ResourceFragment"
+        android:label="fragment_resource"
+        tools:layout="@layout/fragment_resource" >
+        <argument
+            android:name="level"
+            app:argType="com.presentation.models.LevelPresentation" />
+        <argument
+            android:name="track"
+            app:argType="string" />
     </fragment>
 </navigation>

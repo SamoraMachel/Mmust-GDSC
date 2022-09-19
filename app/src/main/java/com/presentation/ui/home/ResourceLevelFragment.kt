@@ -52,7 +52,7 @@ class ResourceLevelFragment : Fragment() {
 
         binding.resourceLevelRecyclerView.layoutManager =
             LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
-        binding.resourceLevelRecyclerView.adapter = ResourceLevelAdapter(sortedLevels)
+        binding.resourceLevelRecyclerView.adapter = ResourceLevelAdapter(sortedLevels, args.track.title)
 
         resourceViewModel.leadProfile.observe(viewLifecycleOwner) { profileState ->
             when(profileState) {

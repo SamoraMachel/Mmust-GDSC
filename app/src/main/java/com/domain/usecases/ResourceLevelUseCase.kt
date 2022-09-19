@@ -10,7 +10,7 @@ import javax.inject.Inject
 class ResourceLevelUseCase @Inject constructor(
     private val resourceRepository: ResourceRepository
 ){
-    suspend fun invoke(level : String) : Flow<ObserverDto<List<ResourceDto>>> {
-        return resourceRepository.getResourceByLevel(level)
+    suspend operator fun invoke(level : String, track: String) : Flow<ObserverDto<List<ResourceDto>>> {
+        return resourceRepository.getResourceByLevel(level, track)
     }
 }

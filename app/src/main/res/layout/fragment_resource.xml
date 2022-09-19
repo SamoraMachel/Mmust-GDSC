@@ -7,7 +7,7 @@
     tools:context="com.presentation.ui.home.ResourceFragment">
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/resource_level"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -21,6 +21,7 @@
         tools:text="Novice Level" />
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/resources_recycler_view"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="8dp"
@@ -29,6 +30,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView7"
+        app:layout_constraintTop_toBottomOf="@+id/resource_level"
         tools:listitem="@layout/single_resource_layout" />
+
+    <ProgressBar
+        android:id="@+id/resource_loader"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

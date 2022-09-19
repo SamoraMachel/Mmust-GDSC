@@ -1,11 +1,13 @@
 package com.data.repository
 
+import android.util.Log
 import com.domain.models.LevelDto
 import com.domain.models.ObserverDto
 import com.domain.models.ResourceDto
 import com.domain.repository.ResourceRepository
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.QuerySnapshot
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -20,7 +22,7 @@ class ResourceRepositoryImpl @Inject constructor(
     override suspend fun getResources(): Flow<ObserverDto<List<ResourceDto>>> = channelFlow {
         try {
             send(ObserverDto.Loading())
-            firebaseFirestore.collection("sessions")
+            firebaseFirestore.collection("resources")
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
                     val resourceList : MutableList<ResourceDto> = mutableListOf()
@@ -37,6 +39,7 @@ class ResourceRepositoryImpl @Inject constructor(
                         resourceList.add(resource)
                     }
                     launch {
+                        Log.d("ResourceRepository", "getResources: ${resourceList}")
                         send(ObserverDto.Success(resourceList))
                     }
                 }
@@ -50,12 +53,14 @@ class ResourceRepositoryImpl @Inject constructor(
         } catch (error : Exception) {
             send(ObserverDto.Failure(false, error.message))
         }
+        awaitClose()
     }
 
-    override suspend fun getResourceByLevel(level: String): Flow<ObserverDto<List<ResourceDto>>> = channelFlow {
+    override suspend fun getResourceByLevel(level: String, track: String): Flow<ObserverDto<List<ResourceDto>>> = channelFlow {
         try {
             send(ObserverDto.Loading())
-            firebaseFirestore.collection("sessions")
+            firebaseFirestore.collection("resources")
+                .whereEqualTo("track_title", track)
                 .whereEqualTo("level", level)
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
@@ -86,12 +91,13 @@ class ResourceRepositoryImpl @Inject constructor(
         } catch (error : Exception) {
             send(ObserverDto.Failure(false, error.message))
         }
+        awaitClose()
     }
 
     override suspend fun getLevels(): Flow<ObserverDto<List<LevelDto>>> = channelFlow {
         try {
             send(ObserverDto.Loading())
-            firebaseFirestore.collection("sessions")
+            firebaseFirestore.collection("resources")
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
                     val levelList : MutableList<LevelDto> = mutableListOf()
@@ -116,5 +122,6 @@ class ResourceRepositoryImpl @Inject constructor(
         } catch (error : Exception) {
             send(ObserverDto.Failure(false, error.message))
         }
+        awaitClose()
     }
 }
