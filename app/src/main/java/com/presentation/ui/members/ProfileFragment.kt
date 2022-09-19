@@ -7,6 +7,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.widget.Toolbar
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.test.mmustgdsc.R
@@ -27,6 +29,9 @@ class ProfileFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
+
+        val toolbar = requireParentFragment().activity?.findViewById<ConstraintLayout>(R.id.toolbarConstraint)
+        toolbar?.visibility = View.GONE
 
         Glide.with(requireContext())
             .load(args.profile.profileImage)

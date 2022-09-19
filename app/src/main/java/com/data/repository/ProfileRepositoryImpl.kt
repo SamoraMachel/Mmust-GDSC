@@ -31,13 +31,13 @@ class ProfileRepositoryImpl @Inject constructor(
                             name = document["name"] as String,
                             title = document["title"] as String,
                             profession = document["profession"] as String,
-                            description = document["description"] as String,
+                            description = document["description"] as String?,
                             instagram = document["instagram"] as String?,
-                            twitter = document["twitter"] as String,
-                            linkedin = document["linkedIn"] as String,
-                            github = document["github"] as String,
-                            behance = document["behance"] as String,
-                            dribble = document["dribble"] as String
+                            twitter = document["twitter"] as String?,
+                            linkedin = document["linkedIn"] as String?,
+                            github = document["github"] as String?,
+                            behance = document["behance"] as String?,
+                            dribble = document["dribble"] as String?
                         )
                         profileList.add(profile)
                     }
