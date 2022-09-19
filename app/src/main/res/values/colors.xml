@@ -12,4 +12,17 @@
     <color name="flat_yellow">#F9D56F</color>
     <color name="flat_green">#67CD82</color>
     <color name="flat_gray">#616161</color>
+
+    // color list
+    <color name="color_1">#DFD0E0</color>
+    <color name="color_2">#F0C8A3</color>
+    <color name="color_3">#F0A3C4</color>
+    <color name="color_4">#A7D1DE</color>
+    <color name="color_5">#FCF5BB</color>
+    <color name="color_6">#DCB7B7</color>
+    <color name="color_7">#C4D6C2</color>
+    <color name="color_8">#D6CBC2</color>
+    <color name="color_9">#D6C2D3</color>
+    <color name="color_10">#A6F0A3</color>
+
 </resources>

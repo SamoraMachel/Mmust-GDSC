@@ -6,6 +6,7 @@ data class Profile(
     val title : String,
     val profession : String,
     val description : String?,
+    val instagram : String?,
     val twitter : String?,
     val linkedin : String?,
     val github : String?,

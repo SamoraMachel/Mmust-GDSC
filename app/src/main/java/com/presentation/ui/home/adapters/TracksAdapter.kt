@@ -1,8 +1,10 @@
 package com.presentation.ui.home.adapters
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.RotateAnimation
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
@@ -11,12 +13,19 @@ import com.presentation.models.TrackPresentation
 import com.presentation.ui.home.TrackFragmentDirections
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.SingleTrackLayoutBinding
+import kotlin.random.Random
+import kotlin.random.nextInt
 
 
 class TracksAdapter(private val tracks : List<TrackPresentation>) : RecyclerView.Adapter<TracksAdapter.ViewHolder>(){
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val binding = SingleTrackLayoutBinding.bind(itemView)
 
+        private val COLOR_LIST = listOf<Int>(
+            R.color.color_1, R.color.color_2, R.color.color_3, R.color.color_4,
+            R.color.color_5, R.color.color_6, R.color.color_7, R.color.color_8,
+            R.color.color_9, R.color.color_10
+        )
         fun setup(data: TrackPresentation) {
             Glide.with(binding.root.context)
                 .load(data.image)
@@ -27,6 +36,7 @@ class TracksAdapter(private val tracks : List<TrackPresentation>) : RecyclerView
             binding.trackCard.setOnClickListener {
                 openResourceLevel(data)
             }
+
         }
 
         private fun openResourceLevel(data : TrackPresentation) {

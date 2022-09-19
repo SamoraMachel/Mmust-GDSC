@@ -7,6 +7,7 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.presentation.models.ProfilePresentation
+import com.presentation.ui.members.MembersFragmentDirections
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.SingleMemberLayoutBinding
 
@@ -24,12 +25,13 @@ class MembersAdapter(
             binding.memberUsername.text = member.name
             binding.memberProfession.text = member.profession
             binding.memberRole.text = member.title
-            binding.memberCard.setOnClickListener { openProfile() }
+            binding.memberCard.setOnClickListener { openProfile(member) }
         }
 
-        private fun openProfile() {
+        private fun openProfile(member : ProfilePresentation) {
             val navController = binding.root.findNavController()
-//            navController.navigate()
+            val action = MembersFragmentDirections.actionMembersFragmentToProfileFragment(member)
+            navController.navigate(action)
         }
     }
 

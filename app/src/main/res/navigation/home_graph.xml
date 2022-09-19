@@ -18,7 +18,11 @@
         android:id="@+id/membersFragment"
         android:name="com.presentation.ui.members.MembersFragment"
         android:label="fragment_members"
-        tools:layout="@layout/fragment_members" />
+        tools:layout="@layout/fragment_members" >
+        <action
+            android:id="@+id/action_membersFragment_to_profileFragment"
+            app:destination="@id/profileFragment" />
+    </fragment>
     <fragment
         android:id="@+id/resourceLevelFragment"
         android:name="com.presentation.ui.home.ResourceLevelFragment"
@@ -42,5 +46,14 @@
         <argument
             android:name="track"
             app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileFragment"
+        android:name="com.presentation.ui.members.ProfileFragment"
+        android:label="fragment_profile"
+        tools:layout="@layout/fragment_profile" >
+        <argument
+            android:name="profile"
+            app:argType="com.presentation.models.ProfilePresentation" />
     </fragment>
 </navigation>

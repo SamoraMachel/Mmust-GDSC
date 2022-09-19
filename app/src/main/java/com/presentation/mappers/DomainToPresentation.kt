@@ -11,7 +11,7 @@ fun LoginDto.toPresentation() : LoginPresentation {
 
 fun ProfileDto.toPresentation() : ProfilePresentation {
     return ProfilePresentation(
-        profileImage, name, title, profession, description, twitter, linkedin, github, behance, dribble
+        profileImage, name, title, profession, instagram, description, twitter, linkedin, github, behance, dribble
     )
 }
 

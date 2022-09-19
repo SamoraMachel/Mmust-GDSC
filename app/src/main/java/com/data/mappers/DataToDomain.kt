@@ -31,6 +31,7 @@ fun Profile.toDomain() : ProfileDto {
         title,
         profession,
         description,
+        instagram,
         twitter,
         linkedin,
         github,
