@@ -3,9 +3,12 @@ package com.presentation.ui.home.adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.presentation.models.TrackPresentation
+import com.presentation.ui.home.TrackFragmentDirections
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.SingleTrackLayoutBinding
 
@@ -21,6 +24,15 @@ class TracksAdapter(private val tracks : List<TrackPresentation>) : RecyclerView
 
             binding.trackTitle.text = data.title
             binding.trackDescription.text = data.description
+            binding.trackCard.setOnClickListener {
+                openResourceLevel(data)
+            }
+        }
+
+        private fun openResourceLevel(data : TrackPresentation) {
+            val navController = binding.root.findNavController()
+            val action = TrackFragmentDirections.actionTrackFragmentToResourceLevelFragment(data)
+            navController.navigate(action)
         }
     }
 

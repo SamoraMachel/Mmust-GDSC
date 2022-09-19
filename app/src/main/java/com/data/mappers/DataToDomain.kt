@@ -68,6 +68,8 @@ fun Track.toDomain() : TrackDto {
     return TrackDto(
         title,
         description,
-        image
+        image,
+        levels,
+        lead
     )
 }

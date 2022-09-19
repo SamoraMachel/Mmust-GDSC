@@ -22,7 +22,7 @@ class ResourceLevelAdapter(
             if(level.title.contains("Beginner")) {
                 binding.levelCard.setCardBackgroundColor(binding.root.resources.getColor(R.color.flat_purple))
                 binding.levelTitle.setTextColor(Color.WHITE)
-                binding.levelTitle.setTextColor(Color.WHITE)
+                binding.levelDescription.setTextColor(Color.WHITE)
             } else if(level.title.contains("Intermediate")) {
                 binding.levelCard.setCardBackgroundColor(binding.root.resources.getColor(R.color.flat_yellow))
                 binding.levelTitle.setTextColor(binding.root.resources.getColor(R.color.flat_gray))
@@ -30,7 +30,7 @@ class ResourceLevelAdapter(
             } else if(level.title.contains("Expert")) {
                 binding.levelCard.setCardBackgroundColor(binding.root.resources.getColor(R.color.flat_green))
                 binding.levelTitle.setTextColor(Color.WHITE)
-                binding.levelTitle.setTextColor(Color.WHITE)
+                binding.levelDescription.setTextColor(Color.WHITE)
             }
         }
     }

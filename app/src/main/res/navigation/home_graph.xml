@@ -9,10 +9,23 @@
         android:id="@+id/trackFragment"
         android:name="com.presentation.ui.home.TrackFragment"
         android:label="fragment_track"
-        tools:layout="@layout/fragment_track" />
+        tools:layout="@layout/fragment_track" >
+        <action
+            android:id="@+id/action_trackFragment_to_resourceLevelFragment"
+            app:destination="@id/resourceLevelFragment" />
+    </fragment>
     <fragment
         android:id="@+id/membersFragment"
         android:name="com.presentation.ui.members.MembersFragment"
         android:label="fragment_members"
         tools:layout="@layout/fragment_members" />
+    <fragment
+        android:id="@+id/resourceLevelFragment"
+        android:name="com.presentation.ui.home.ResourceLevelFragment"
+        android:label="fragment_resource_level"
+        tools:layout="@layout/fragment_resource_level" >
+        <argument
+            android:name="track"
+            app:argType="com.presentation.models.TrackPresentation" />
+    </fragment>
 </navigation>
