@@ -10,4 +10,6 @@ data class TrackPresentation(
     val image : String,
     val levels : Map<String, String>,
     val lead : String,
+    val day : String,
+    val timeRange : String
 ) : Parcelable

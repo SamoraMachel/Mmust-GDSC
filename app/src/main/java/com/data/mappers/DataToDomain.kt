@@ -61,6 +61,8 @@ fun Track.toDomain() : TrackDto {
         description,
         image,
         levels,
-        lead
+        lead,
+        day,
+        timeRange
     )
 }

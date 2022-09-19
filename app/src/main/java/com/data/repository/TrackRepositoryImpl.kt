@@ -31,6 +31,8 @@ class TrackRepositoryImpl @Inject constructor(
                             image = document["image"] as String,
                             levels = document["levels"] as Map<String, String>,
                             lead = document["lead"] as String,
+                            day = document["day"] as String,
+                            timeRange = document["timeRange"] as String
                         )
                         trackList.add(track)
 

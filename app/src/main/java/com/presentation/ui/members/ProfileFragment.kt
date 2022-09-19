@@ -30,8 +30,6 @@ class ProfileFragment : Fragment() {
     ): View? {
         _binding = FragmentProfileBinding.inflate(inflater, container, false)
 
-        val toolbar = requireParentFragment().activity?.findViewById<ConstraintLayout>(R.id.toolbarConstraint)
-        toolbar?.visibility = View.GONE
 
         Glide.with(requireContext())
             .load(args.profile.profileImage)

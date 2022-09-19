@@ -56,4 +56,9 @@
             android:name="profile"
             app:argType="com.presentation.models.ProfilePresentation" />
     </fragment>
+    <fragment
+        android:id="@+id/sessionFragment"
+        android:name="com.presentation.ui.session.SessionFragment"
+        android:label="fragment_session"
+        tools:layout="@layout/fragment_session" />
 </navigation>

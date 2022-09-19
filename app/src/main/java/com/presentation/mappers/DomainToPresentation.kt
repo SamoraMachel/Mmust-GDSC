@@ -35,7 +35,7 @@ fun EventDto.toPresentation() : EventPresentation {
 
 fun TrackDto.toPresentation() : TrackPresentation {
     return TrackPresentation(
-        title, description, image, levels, lead
+        title, description, image, levels, lead, day, timeRange
     )
 }
 

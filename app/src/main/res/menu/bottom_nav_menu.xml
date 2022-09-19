@@ -8,7 +8,7 @@
         android:visible="true" />
 
     <item
-        android:id="@+id/sessions"
+        android:id="@+id/sessionFragment"
         android:icon="@drawable/sessions"
         android:title="@string/bottomNavSession"
         android:visible="true" />
