@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.session.adapters.SessionAdapter
 import com.presentation.ui.session.viewmodels.SessionViewModel
+import com.presentation.ui.states.SessionUIState
 import com.presentation.ui.states.TrackUIState
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.FragmentSessionBinding
@@ -43,7 +44,7 @@ class SessionFragment : Fragment() {
                 TrackUIState.StandBy -> Unit
                 is TrackUIState.Success -> {
                     binding.sessionLoader.visibility = View.GONE
-                    binding.sessionRecyclerView.adapter = observer.data?.let { data -> SessionAdapter(data) }
+                    binding.sessionRecyclerView.adapter = observer.data?.let { data -> SessionAdapter(data, sessionViewModel) }
                 }
             }
         }

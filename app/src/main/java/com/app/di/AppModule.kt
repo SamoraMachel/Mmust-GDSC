@@ -39,7 +39,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesTrackRepository(firebaseFirestore: FirebaseFirestore) : TrackRepository {
-        return TrackRepositoryImpl(firebaseFirestore)
+    fun providesTrackRepository(firebaseFirestore: FirebaseFirestore, profileRepository: ProfileRepository) : TrackRepository {
+        return TrackRepositoryImpl(firebaseFirestore, profileRepository)
     }
 }

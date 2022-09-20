@@ -44,3 +44,10 @@ fun LevelDto.toPresentation() : LevelPresentation {
         title, description
     )
 }
+
+fun SessionDto.toPresentation() : SessionPresentation {
+    return SessionPresentation(
+        track.toPresentation(),
+        profile.toPresentation()
+    )
+}
