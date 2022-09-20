@@ -5,6 +5,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.snackbar.Snackbar
+import com.presentation.ui.session.adapters.SessionAdapter
+import com.presentation.ui.session.viewmodels.SessionViewModel
+import com.presentation.ui.states.TrackUIState
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.FragmentSessionBinding
 
@@ -12,6 +18,8 @@ import com.test.mmustgdsc.databinding.FragmentSessionBinding
 class SessionFragment : Fragment() {
     private var _binding : FragmentSessionBinding? = null
     private val binding get() = _binding!!
+
+    private val sessionViewModel : SessionViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,11 +30,37 @@ class SessionFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentSessionBinding.inflate(inflater, container, false)
+
+        binding.sessionRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
+
+        sessionViewModel.sessionDataList.observe(viewLifecycleOwner) { observer ->
+            when(observer) {
+                is TrackUIState.Failure -> {
+                    binding.sessionLoader.visibility = View.GONE
+                    showSnackBar("Could not get session data.\n${observer.message}")
+                }
+                TrackUIState.Loading -> binding.sessionLoader.visibility = View.VISIBLE
+                TrackUIState.StandBy -> Unit
+                is TrackUIState.Success -> {
+                    binding.sessionLoader.visibility = View.GONE
+                    binding.sessionRecyclerView.adapter = observer.data?.let { data -> SessionAdapter(data) }
+                }
+            }
+        }
+
         return binding.root
     }
 
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    private fun showSnackBar(message : String)  {
+        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction("Cancel") {
+            snackbar.dismiss()
+        }
+        snackbar.show()
     }
 }

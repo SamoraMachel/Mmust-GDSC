@@ -34,7 +34,6 @@ class TrackViewModel @Inject constructor(
                 is ObserverDto.Loading -> _tracksDataList.value  = TrackUIState.Loading
                 is ObserverDto.Failure -> _tracksDataList.value = TrackUIState.Failure(observer.message)
                 is ObserverDto.Success -> {
-                    val trackPresentation = mutableListOf<TrackPresentation>()
                     _tracksDataList.value = TrackUIState.Success( observer.data?.map { it.toPresentation() })
                 }
             }
