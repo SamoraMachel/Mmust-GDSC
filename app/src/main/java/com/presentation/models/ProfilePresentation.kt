@@ -16,4 +16,5 @@ data class ProfilePresentation(
     val github : String?,
     val behance : String?,
     val dribble : String?,
+    val interests : List<String>
 ) : Parcelable

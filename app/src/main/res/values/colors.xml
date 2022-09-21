@@ -13,7 +13,7 @@
     <color name="flat_green">#67CD82</color>
     <color name="flat_gray">#616161</color>
 
-    // color list
+    <!--    // color list-->
     <color name="color_1">#DFD0E0</color>
     <color name="color_2">#F0C8A3</color>
     <color name="color_3">#F0A3C4</color>
@@ -24,5 +24,11 @@
     <color name="color_8">#D6CBC2</color>
     <color name="color_9">#D6C2D3</color>
     <color name="color_10">#A6F0A3</color>
+
+    <!-- GDSC Color -->
+    <color name="gdsc_red">#EA4335</color>
+    <color name="gdsc_blue">#4285F4</color>
+    <color name="gdsc_yellow">#FBBC04</color>
+    <color name="gdsc_green">#34A853</color>
 
 </resources>

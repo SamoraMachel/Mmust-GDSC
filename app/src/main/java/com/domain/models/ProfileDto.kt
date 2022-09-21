@@ -12,4 +12,5 @@ data class ProfileDto(
     val github : String?,
     val behance : String?,
     val dribble : String?,
+    val interests : List<String>
 )

@@ -26,7 +26,7 @@ fun Event.toDomain() : EventDto {
 
 fun Profile.toDomain() : ProfileDto {
     return ProfileDto(
-        profileImage, name, title, profession, description, instagram, twitter, linkedin, github, behance, dribble
+        profileImage, name, title, profession, description, instagram, twitter, linkedin, github, behance, dribble, interests
     )
 }
 

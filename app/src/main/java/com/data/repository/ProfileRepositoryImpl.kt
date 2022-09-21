@@ -37,7 +37,8 @@ class ProfileRepositoryImpl @Inject constructor(
                             linkedin = document["linkedIn"] as String?,
                             github = document["github"] as String?,
                             behance = document["behance"] as String?,
-                            dribble = document["dribble"] as String?
+                            dribble = document["dribble"] as String?,
+                            interests = document["interests"] as List<String>
                         )
                         profileList.add(profile)
                     }
@@ -78,7 +79,8 @@ class ProfileRepositoryImpl @Inject constructor(
                             linkedin = document["linkedIn"] as String?,
                             github = document["github"] as String?,
                             behance = document["behance"] as String?,
-                            dribble = document["dribble"] as String?
+                            dribble = document["dribble"] as String?,
+                            interests = document["interests"] as List<String>
                         )
                         profileList.add(profile)
                     }
@@ -116,7 +118,8 @@ class ProfileRepositoryImpl @Inject constructor(
                         linkedin = snapshot["linkedIn"] as String?,
                         github = snapshot["github"] as String?,
                         behance = snapshot["behance"] as String?,
-                        dribble = snapshot["dribble"] as String?
+                        dribble = snapshot["dribble"] as String?,
+                        interests = snapshot["interests"] as List<String>
                     )
 
                     launch {
@@ -156,7 +159,8 @@ class ProfileRepositoryImpl @Inject constructor(
                             linkedin = document["linkedIn"] as String,
                             github = document["github"] as String,
                             behance = document["behance"] as String,
-                            dribble = document["dribble"] as String
+                            dribble = document["dribble"] as String,
+                            interests = document["interests"] as List<String>
                         )
                         profileList.add(profile)
                     }
@@ -197,7 +201,8 @@ class ProfileRepositoryImpl @Inject constructor(
                             linkedin = document["linkedIn"] as String,
                             github = document["github"] as String,
                             behance = document["behance"] as String,
-                            dribble = document["dribble"] as String
+                            dribble = document["dribble"] as String,
+                            interests = document["interests"] as List<String>
                         )
                         profileList.add(profile)
                     }

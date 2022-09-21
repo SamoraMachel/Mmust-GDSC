@@ -89,10 +89,11 @@
     <ProgressBar
         android:id="@+id/session_lead_loader"
         style="?android:attr/progressBarStyle"
-        android:layout_width="20dp"
-        android:layout_height="20dp"
+        android:layout_width="15dp"
+        android:layout_height="15dp"
+        android:layout_marginStart="32dp"
         android:layout_marginBottom="11dp"
         app:layout_constraintBottom_toBottomOf="@+id/textView8"
-        app:layout_constraintEnd_toEndOf="@+id/session_lead_name"
-        app:layout_constraintStart_toStartOf="@+id/session_lead_name" />
+        app:layout_constraintStart_toStartOf="@+id/session_lead_name"
+        app:layout_constraintTop_toTopOf="@+id/session_lead_image" />
 </androidx.constraintlayout.widget.ConstraintLayout>

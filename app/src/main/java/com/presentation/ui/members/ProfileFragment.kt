@@ -11,6 +11,7 @@ import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.chip.Chip
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.FragmentProfileBinding
 
@@ -72,6 +73,12 @@ class ProfileFragment : Fragment() {
             binding.githubIcon.setOnClickListener {
                 openIntent(Uri.parse("https://github.com/${github}"))
             }
+        }
+
+        args.profile.interests.forEach { interest ->
+            val chip = Chip(requireContext())
+            chip.text = interest
+            binding.interestGroup.addView(chip)
         }
 
         return binding.root

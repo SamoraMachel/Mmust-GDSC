@@ -1,5 +1,6 @@
 package com.presentation.ui.session.adapters
 
+import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,8 +30,11 @@ class SessionAdapter(
             binding.sessionDay.text = session.day
             binding.sessionTime.text = session.timeRange
             binding.sessionTitle.text = session.title
+        }
 
-
+        fun setColor(color : Int) {
+            binding.sessionDay.chipBackgroundColor = ColorStateList.valueOf(color)
+            binding.sessionTitle.setTextColor(color)
         }
 
         fun openLoader() {
@@ -59,8 +63,14 @@ class SessionAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        val colorList = listOf(
+            R.color.gdsc_blue, R.color.gdsc_red, R.color.gdsc_green, R.color.gdsc_yellow
+        )
+
         val session = sessions[position]
         holder.setup(session)
+        holder.setColor(colorList[position % 4])
+        viewModel.getLeadData(session.lead)
 
         viewModel.leadProfile.observeForever { observer ->
             when(observer) {
