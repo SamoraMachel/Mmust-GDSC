@@ -7,4 +7,28 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="flat_purple">#8AA5D1</color>
+    <color name="flat_yellow">#F9D56F</color>
+    <color name="flat_green">#67CD82</color>
+    <color name="flat_gray">#616161</color>
+
+    <!--    // color list-->
+    <color name="color_1">#DFD0E0</color>
+    <color name="color_2">#F0C8A3</color>
+    <color name="color_3">#F0A3C4</color>
+    <color name="color_4">#A7D1DE</color>
+    <color name="color_5">#FCF5BB</color>
+    <color name="color_6">#DCB7B7</color>
+    <color name="color_7">#C4D6C2</color>
+    <color name="color_8">#D6CBC2</color>
+    <color name="color_9">#D6C2D3</color>
+    <color name="color_10">#A6F0A3</color>
+
+    <!-- GDSC Color -->
+    <color name="gdsc_red">#EA4335</color>
+    <color name="gdsc_blue">#4285F4</color>
+    <color name="gdsc_yellow">#FBBC04</color>
+    <color name="gdsc_green">#34A853</color>
+
 </resources>

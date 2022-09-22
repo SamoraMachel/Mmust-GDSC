@@ -1,0 +1,103 @@
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/resourceLevelConstraint"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.presentation.ui.home.ResourceLevelFragment">
+
+    <TextView
+        android:id="@+id/resource_level_title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="16dp"
+        android:fontFamily="@font/roboto"
+        android:textColor="#4285F4"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Android Development" />
+
+    <TextView
+        android:id="@+id/resource_level_description"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="@+id/resource_level_title"
+        app:layout_constraintStart_toStartOf="@+id/resource_level_title"
+        app:layout_constraintTop_toBottomOf="@+id/resource_level_title"
+        tools:text="Building tutorials with examples of how to use HTML, CSS, JavaScripBuilding tutorials with examples of how to use HTML, CSS, JavaScrip" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/resource_lead_image"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="19dp"
+        android:src="@drawable/potrait_default"
+        app:civ_border_color="#2F80ED"
+        app:civ_border_width="3dp"
+        app:layout_constraintStart_toStartOf="@+id/resource_level_description"
+        app:layout_constraintTop_toBottomOf="@+id/resource_level_description" />
+
+    <TextView
+        android:id="@+id/resource_lead_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/roboto"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toEndOf="@+id/resource_lead_image"
+        app:layout_constraintTop_toTopOf="@+id/resource_lead_image"
+        tools:text="Samora Machel" />
+
+    <TextView
+        android:id="@+id/resource_lead_role"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#4285F4"
+        android:textSize="12sp"
+        app:layout_constraintBottom_toBottomOf="@+id/resource_lead_image"
+        app:layout_constraintStart_toStartOf="@+id/resource_lead_name"
+        app:layout_constraintTop_toBottomOf="@+id/resource_lead_name"
+        tools:text="Android Lead" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="51dp"
+        android:text="Resources"
+        android:textColor="#717171"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/resource_lead_image"
+        app:layout_constraintTop_toBottomOf="@+id/resource_lead_image" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/resource_level_recycler_view"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="-4dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        tools:itemCount="3"
+        tools:listitem="@layout/single_resource_level_layout" />
+
+    <ProgressBar
+        android:id="@+id/lead_profile_loader"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:layout_marginStart="24dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/resource_lead_image"
+        app:layout_constraintStart_toEndOf="@+id/resource_lead_image"
+        app:layout_constraintTop_toTopOf="@+id/resource_lead_image" />
+</androidx.constraintlayout.widget.ConstraintLayout>
