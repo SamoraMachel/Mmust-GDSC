@@ -9,11 +9,15 @@ import com.domain.usecases.FetchSessionUseCase
 import com.domain.usecases.FetchSpecificLeadUseCase
 import com.domain.usecases.TrackUseCase
 import com.presentation.mappers.toPresentation
+import com.presentation.models.ProfilePresentation
 import com.presentation.ui.states.SessionUIState
 import com.presentation.ui.states.SingleProfileUIState
 import com.presentation.ui.states.TrackUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.channelFlow
+import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -54,6 +58,16 @@ class SessionViewModel @Inject constructor(
                         observer.data?.toPresentation()
                     )
                 }
+            }
+        }
+    }
+
+    fun getFlowLeadData(id: String) : Flow<SingleProfileUIState> = flow {
+        fetchSpecificLeadUseCase(id).collect { observer ->
+            when(observer) {
+                is ObserverDto.Failure -> emit(SingleProfileUIState.Failure(observer.message))
+                is ObserverDto.Loading -> emit(SingleProfileUIState.Loading)
+                is ObserverDto.Success -> emit(SingleProfileUIState.Success(observer.data?.toPresentation()))
             }
         }
     }
