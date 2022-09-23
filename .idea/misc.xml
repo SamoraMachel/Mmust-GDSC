@@ -5,14 +5,15 @@
       <map>
         <entry key="app/src/main/res/layout/activity_home.xml" value="0.37166324435318276" />
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.25" />
-        <entry key="app/src/main/res/layout/fragment_event.xml" value="0.36302083333333335" />
         <entry key="app/src/main/res/layout/content_main.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_event.xml" value="0.36302083333333335" />
         <entry key="app/src/main/res/layout/fragment_first.xml" value="0.1" />
         <entry key="app/src/main/res/layout/fragment_login.xml" value="0.25" />
         <entry key="app/src/main/res/layout/fragment_login_1.xml" value="0.35104166666666664" />
         <entry key="app/src/main/res/layout/fragment_resource.xml" value="0.18854166666666666" />
         <entry key="app/src/main/res/layout/fragment_resource_level.xml" value="0.18854166666666666" />
         <entry key="app/src/main/res/layout/fragment_second.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_track.xml" value="0.1" />
         <entry key="app/src/main/res/layout/single_resource_level_layout.xml" value="0.18854166666666666" />
         <entry key="app/src/main/res/layout/single_track_layout.xml" value="0.18854166666666666" />
       </map>

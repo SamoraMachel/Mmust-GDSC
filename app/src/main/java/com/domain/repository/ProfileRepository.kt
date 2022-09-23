@@ -15,4 +15,6 @@ interface ProfileRepository {
     suspend fun getMember() : Flow<ObserverDto<List<ProfileDto>>>
 
     suspend fun getMemberByProfession(profession : String) : Flow<ObserverDto<List<ProfileDto>>>
+
+    suspend fun getProfileByEmail(email : String) : Flow<ObserverDto<ProfileDto?>>
 }

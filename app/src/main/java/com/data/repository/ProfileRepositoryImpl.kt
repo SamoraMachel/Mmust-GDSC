@@ -222,4 +222,50 @@ class ProfileRepositoryImpl @Inject constructor(
         }
         awaitClose()
     }
+
+    override suspend fun getProfileByEmail(email: String): Flow<ObserverDto<ProfileDto?>> = channelFlow {
+        try {
+            send(ObserverDto.Loading())
+            firebaseFirestore.collection("profiles")
+                .whereEqualTo("email", email)
+                .get()
+                .addOnSuccessListener { snapshot : QuerySnapshot? ->
+                    if (snapshot != null && snapshot.documents.isNotEmpty()) {
+                        val document = snapshot.documents[0]
+                        val profile = ProfileDto(
+                            profileImage = document["profileImage"] as String,
+                            name = document["name"] as String,
+                            title = document["title"] as String,
+                            profession = document["profession"] as String,
+                            description = document["description"] as String,
+                            instagram = document["instagram"] as String?,
+                            twitter = document["twitter"] as String?,
+                            linkedin = document["linkedIn"] as String?,
+                            github = document["github"] as String?,
+                            behance = document["behance"] as String?,
+                            dribble = document["dribble"] as String?,
+                            interests = document["interests"] as List<String>
+                        )
+
+                        launch {
+                            send(ObserverDto.Success(profile))
+                        }
+                    } else {
+                        launch {
+                            send(ObserverDto.Success(null))
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
+                    }
+                }
+        } catch (error : IOException) {
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+        } catch (error : Exception) {
+            send(ObserverDto.Failure(false, error.message))
+        }
+        awaitClose()
+    }
 }
