@@ -42,7 +42,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
-                android:maxLines="2"
                 android:textSize="12sp"
                 tools:text="Building tutorials with examples of how to use HTML, CSS, JavaScrip" />
         </LinearLayout>

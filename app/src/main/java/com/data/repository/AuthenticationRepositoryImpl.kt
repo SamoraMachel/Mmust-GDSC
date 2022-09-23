@@ -43,7 +43,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
             firebaseAuth.signInWithEmailAndPassword(regModel.email, regModel.password)
                 .addOnSuccessListener {
                     val userProfile = hashMapOf(
-                        "id"        to it.user,
+                        "email"     to regModel.email,
                         "fullName"  to regModel.fullName,
                         "profileImage" to regModel.profileImage,
                         "interests" to regModel.interests,

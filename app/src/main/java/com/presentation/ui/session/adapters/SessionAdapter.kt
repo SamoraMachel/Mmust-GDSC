@@ -4,6 +4,7 @@ import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -17,6 +18,7 @@ import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.SingleSessionLayoutBinding
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
 
 class SessionAdapter(
     private val sessions : List<TrackPresentation>,
@@ -33,8 +35,12 @@ class SessionAdapter(
         }
 
         fun setColor(color : Int) {
-            binding.sessionDay.chipBackgroundColor = ColorStateList.valueOf(color)
-            binding.sessionTitle.setTextColor(color)
+            binding.sessionDay.chipBackgroundColor = ContextCompat.getColorStateList(
+                binding.root.context, color
+            )
+            binding.sessionTitle.setTextColor(ContextCompat.getColor(
+                binding.root.context, color
+            ))
         }
 
         fun openLoader() {
@@ -46,6 +52,7 @@ class SessionAdapter(
         }
 
         fun loadUserProfile(lead : ProfilePresentation?) {
+            hideLoader()
             if (lead != null) {
                 Glide.with(binding.root.context)
                     .load(lead.profileImage)
@@ -53,6 +60,17 @@ class SessionAdapter(
                 binding.sessionLeadName.text = lead.name
             } else {
                 binding.sessionLeadName.text = "Error loading"
+            }
+        }
+
+        fun profileLoader(viewModel : SessionViewModel, id: String) = viewModel.viewModelScope.launch {
+            viewModel.getFlowLeadData(id).collect { profileState ->
+                when(profileState) {
+                    is SingleProfileUIState.Failure -> binding.sessionLeadName.text = "Error loading"
+                    SingleProfileUIState.Loading -> openLoader()
+                    SingleProfileUIState.StandBy -> Unit
+                    is SingleProfileUIState.Success -> loadUserProfile(profileState.data)
+                }
             }
         }
     }
@@ -70,24 +88,7 @@ class SessionAdapter(
         val session = sessions[position]
         holder.setup(session)
         holder.setColor(colorList[position % 4])
-        viewModel.getLeadData(session.lead)
-
-        viewModel.leadProfile.observeForever { observer ->
-            when(observer) {
-                is SingleProfileUIState.Failure -> {
-                    holder.hideLoader()
-                    holder.loadUserProfile(null)
-                }
-                SingleProfileUIState.Loading -> {
-                    holder.openLoader()
-                }
-                SingleProfileUIState.StandBy -> Unit
-                is SingleProfileUIState.Success -> {
-                    holder.hideLoader()
-                    holder.loadUserProfile(observer.data)
-                }
-            }
-        }
+        holder.profileLoader(viewModel, session.lead)
 
     }
 

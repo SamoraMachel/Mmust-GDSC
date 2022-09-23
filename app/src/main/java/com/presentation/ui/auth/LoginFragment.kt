@@ -26,7 +26,10 @@ class LoginFragment : Fragment() {
     ): View? {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
-        binding.buttonLogin.setOnClickListener { loginUser() }
+        binding.buttonLogin.setOnClickListener {
+            if(checkPassword() && checkEmail())
+                loginUser()
+        }
 
         return binding.root
     }
@@ -40,5 +43,19 @@ class LoginFragment : Fragment() {
         val intent = Intent(requireContext(), HomeActivity::class.java)
         startActivity(intent)
         requireActivity().finish()
+    }
+
+    private fun checkEmail() : Boolean {
+        return if(binding.loginEmail.text?.isBlank() == true || binding.loginEmail.text?.isEmpty() == true) {
+            binding.loginEmail.error = "Email cannot be empty"
+            false
+        } else true
+    }
+
+    private fun checkPassword() : Boolean {
+        return if(binding.loginPassword.text?.isBlank() == true || binding.loginPassword.text?.isEmpty() == true) {
+            binding.loginPassword.error = "Password cannot be empty"
+            false
+        } else true
     }
 }

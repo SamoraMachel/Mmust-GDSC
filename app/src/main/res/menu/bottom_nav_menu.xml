@@ -4,17 +4,15 @@
     <item
         android:id="@+id/trackFragment"
         android:icon="@drawable/dashboard"
-        android:title="@string/bottomNavHome"
-        android:visible="true" />
+        android:title="@string/bottomNavHome" />
 
     <item
         android:id="@+id/sessionFragment"
         android:icon="@drawable/sessions"
-        android:title="@string/bottomNavSession"
-        android:visible="true" />
+        android:title="@string/bottomNavSession" />
 
     <item
-        android:id="@+id/events"
+        android:id="@+id/eventFragment"
         android:icon="@drawable/events"
         android:title="@string/bottomNavEvents" />
 
