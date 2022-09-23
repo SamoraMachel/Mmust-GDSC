@@ -35,8 +35,9 @@ class TracksAdapter(private val tracks : List<TrackPresentation>) : RecyclerView
         }
 
         fun setColor(color : Int)  {
-            binding.trackCard.setBackgroundColor(ContextCompat.getColor(binding.root.context, color))
+            binding.trackCard.setCardBackgroundColor(ContextCompat.getColor(binding.root.context, color))
             binding.trackDescription.setTextColor(Color.WHITE)
+            binding.trackTitle.setTextColor(Color.WHITE)
         }
 
         private fun openResourceLevel(data : TrackPresentation) {
@@ -55,7 +56,7 @@ class TracksAdapter(private val tracks : List<TrackPresentation>) : RecyclerView
         val track = tracks[position]
         val COLOR_LIST = listOf<Int>(
             R.color.gdsc_yellow, R.color.gdsc_green, R.color.gdsc_red, R.color.gdsc_blue,
-        )
+        ).reversed()
         holder.setup(track)
         holder.setColor(COLOR_LIST[position % 4])
     }
