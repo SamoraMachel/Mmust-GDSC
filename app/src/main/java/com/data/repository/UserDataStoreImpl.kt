@@ -72,4 +72,48 @@ class UserDataStoreImpl @Inject constructor(
                 preferences[PreferenceKeys.PROFILE_AVAILABLE] ?: false
             }
     }
+
+    override suspend fun saveBooleanDataStore(
+        state: Boolean,
+        preferenceKey: Preferences.Key<Boolean>
+    ) {
+        prefsDataStore.edit { preferences ->
+            preferences[preferenceKey] = state
+        }
+    }
+
+    override suspend fun getBooleanDataStore(preferenceKey: Preferences.Key<Boolean>): Flow<Boolean> {
+        return prefsDataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }.map { preferences ->
+                preferences[preferenceKey] ?: false
+            }
+    }
+
+    override suspend fun saveStringDataStore(
+        state: String,
+        preferenceKey: Preferences.Key<String>
+    ) {
+        prefsDataStore.edit { preferences ->
+            preferences[preferenceKey] = state
+        }
+    }
+
+    override suspend fun getStringDataStore(preferenceKey: Preferences.Key<String>): Flow<String> {
+        return prefsDataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }.map { preferences ->
+                preferences[preferenceKey] ?: ""
+            }
+    }
 }
