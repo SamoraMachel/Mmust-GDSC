@@ -6,6 +6,7 @@ import com.domain.models.RegistrationDto
 import com.domain.repository.AuthenticationRepository
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import java.io.IOException
@@ -35,6 +36,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
         } catch (error : Exception) {
             send(ObserverDto.Failure(false, error.message))
         }
+        awaitClose()
     }
 
     override suspend fun registerUser(regModel: RegistrationDto): Flow<ObserverDto<Boolean>> = channelFlow {
@@ -80,6 +82,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
         } catch (error : Exception) {
             send(ObserverDto.Failure(false, error.message))
         }
+        awaitClose()
     }
 
     override suspend fun logoutUser(): Flow<ObserverDto<Boolean>> = flow {

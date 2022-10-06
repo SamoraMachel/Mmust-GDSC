@@ -6,10 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.domain.models.LoginDto
 import com.domain.models.ObserverDto
 import com.domain.repository.UserDataStore
-import com.domain.usecases.FetchProfileEmailUseCase
-import com.domain.usecases.LoginUseCase
-import com.domain.usecases.RegistrationUseCase
-import com.domain.usecases.SaveProfileDataStoreUseCase
+import com.domain.usecases.*
 import com.presentation.models.ProfilePresentation
 import com.presentation.ui.states.AuthenticationUIState
 import com.presentation.ui.states.ProfileCreatedState
@@ -22,7 +19,7 @@ import javax.inject.Inject
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val registrationUseCase: RegistrationUseCase,
-    private val userDataStore : UserDataStore,
+    private val saveLoginDataStoreUseCase: SaveLoginDataStoreUseCase,
     private val profileEmailUseCase: FetchProfileEmailUseCase,
     private val saveProfileUserDataStore: SaveProfileDataStoreUseCase
 ): ViewModel() {
@@ -36,14 +33,17 @@ class LoginViewModel @Inject constructor(
         val loginDetails = LoginDto(email, password)
         loginUseCase(loginDetails).collect{ observer ->
             when(observer) {
-                is ObserverDto.Failure -> _userLoggedIn.value = AuthenticationUIState.Failure(observer.message)
+                is ObserverDto.Failure -> {
+                    saveLoginDataStoreUseCase(false)
+                    _userLoggedIn.value = AuthenticationUIState.Failure(observer.message)
+                }
                 is ObserverDto.Loading -> _userLoggedIn.value = AuthenticationUIState.Loading
                 is ObserverDto.Success -> {
                     if(observer.data == true) {
-                        userDataStore.saveUserLoggedInState(true)
+                        saveLoginDataStoreUseCase(true)
                         _userLoggedIn.value = AuthenticationUIState.Success(true)
                     } else {
-                        userDataStore.saveUserLoggedInState(false)
+                        saveLoginDataStoreUseCase(false)
                         _userLoggedIn.value = AuthenticationUIState.Success(false)
                     }
                 }
