@@ -12,4 +12,7 @@
     <string name="profile_greeting">Tell us About Yourself</string>
     <string name="optional_text">Optional Fields</string>
     <string name="proceed">Proceed</string>
+
+    <string name="home_title">Google Developer Student Club MMUST.</string>
+    <string name="home_sub_title">Google Developer Student Club (GDSC) is a community group for university students that help  bridge the gap between theory and practice.</string>
 </resources>
