@@ -42,7 +42,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
     override suspend fun registerUser(regModel: RegistrationDto): Flow<ObserverDto<Boolean>> = channelFlow {
         try {
             send(ObserverDto.Loading())
-            firebaseAuth.signInWithEmailAndPassword(regModel.email, regModel.password)
+            firebaseAuth.createUserWithEmailAndPassword(regModel.email, regModel.password)
                 .addOnSuccessListener {
                     val userProfile = hashMapOf(
                         "email"     to regModel.email,
