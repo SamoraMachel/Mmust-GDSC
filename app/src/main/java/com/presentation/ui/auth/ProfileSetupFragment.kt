@@ -15,6 +15,8 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import com.bumptech.glide.Glide
 import com.presentation.ui.auth.viewmodels.LoginViewModel
+import com.presentation.ui.states.ProgressUIState
+import com.presentation.ui.states.StringUIState
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.FragmentProfileSetupBinding
 
@@ -44,6 +46,13 @@ class ProfileSetupFragment : Fragment() {
             requestGallery()
         }
 
+        binding.buttonProceed.setOnClickListener {
+            profileImageToUpload?.let {
+                viewModel.uploadProfileImage(it)
+            }
+        }
+
+        uploadPhotoListener()
         return binding.root
     }
 
@@ -60,6 +69,34 @@ class ProfileSetupFragment : Fragment() {
                     arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
                     GALLERY_REQUEST
                 )
+            }
+        }
+    }
+
+
+
+    private fun uploadPhotoListener() {
+        viewModel.profileImageUploaded.observe(viewLifecycleOwner) { state_listener ->
+            when(state_listener) {
+                is ProgressUIState.Failure -> {
+                    binding.buttonProceed.visibility = View.VISIBLE
+                    binding.loadingLayout.visibility = View.GONE
+                    binding.circularProgressBar.visibility = View.INVISIBLE
+                    Toast.makeText(requireContext(), state_listener.message, Toast.LENGTH_LONG).show()
+                }
+                is ProgressUIState.Loading -> {
+                    binding.buttonProceed.visibility = View.GONE
+                    binding.loadingLayout.visibility = View.VISIBLE
+                    binding.loadingText.text = "Uploading Image ${state_listener.data.progress}"
+                }
+                ProgressUIState.StandBy -> {
+
+                }
+                is ProgressUIState.Success -> {
+                    Toast.makeText(requireContext(), "Uploaded Successfully", Toast.LENGTH_LONG).show()
+                    binding.buttonProceed.visibility = View.VISIBLE
+                    binding.loadingLayout.visibility = View.GONE
+                }
             }
         }
     }

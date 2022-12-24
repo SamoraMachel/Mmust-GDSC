@@ -17,7 +17,7 @@ fun ProfileDto.toPresentation() : ProfilePresentation {
 
 fun RegistrationDto.toPresentation() : RegistrationPresentation {
     return RegistrationPresentation(
-        profileImage, email, password, fullName, description, interests, title, profession, twitter, linkedin, github, behance, dribble
+         email, password, profile.toPresentation()
     )
 }
 
@@ -49,5 +49,11 @@ fun SessionDto.toPresentation() : SessionPresentation {
     return SessionPresentation(
         track.toPresentation(),
         profile.toPresentation()
+    )
+}
+
+fun ProgressiveDataDto<String>.toPresentation() : ProgressiveDataPresentation<String> {
+    return ProgressiveDataPresentation(
+        progress, data
     )
 }

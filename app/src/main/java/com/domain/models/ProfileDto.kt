@@ -3,7 +3,7 @@ package com.domain.models
 data class ProfileDto(
     val profileImage : String,
     val name : String,
-    val title : String,
+    val title : String = "title",
     val profession : String,
     val description : String?,
     val instagram : String?,

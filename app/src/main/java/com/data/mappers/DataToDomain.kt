@@ -39,19 +39,9 @@ fun Login.toDomain() : LoginDto {
 
 fun Registration.toDomain() : RegistrationDto {
     return RegistrationDto(
-        profileImage,
         email,
         password,
-        fullName,
-        description,
-        interests,
-        title,
-        profession,
-        twitter,
-        linkedin,
-        github,
-        behance,
-        dribble
+        profile.toDomain()
     )
 }
 
