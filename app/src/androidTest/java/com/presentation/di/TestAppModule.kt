@@ -1,4 +1,4 @@
-package com.app.di
+package com.presentation.di
 
 import android.app.Application
 import android.content.Context
@@ -18,7 +18,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object AppModule {
+object TestAppModule {
     @Provides
     @Singleton
     fun providesAuthenticationRepository(firebaseAuth : FirebaseAuth, firebaseFirestore: FirebaseFirestore) : AuthenticationRepository {
@@ -57,7 +57,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesUserDataStore(preferenceDataStore : DataStore<Preferences>): UserDataStore {
+    fun providesUserDataStore(preferenceDataStore : DataStore<Preferences>): UserDataStoreImpl {
         return UserDataStoreImpl(preferenceDataStore)
     }
 }

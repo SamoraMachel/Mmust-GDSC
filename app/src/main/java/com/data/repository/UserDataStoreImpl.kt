@@ -8,7 +8,6 @@ import com.app.PreferenceKeys
 import com.domain.repository.UserDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.catch
-import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 import java.io.IOException
 import javax.inject.Inject
@@ -37,7 +36,7 @@ class UserDataStoreImpl @Inject constructor(
 
     override suspend fun saveEmailAddress(email: String) {
         prefsDataStore.edit { preferences ->
-            preferences[PreferenceKeys.EMAIL_ADDRESS] = email
+            preferences[PreferenceKeys.USER_EMAIL_ADDRESS] = email
         }
     }
 
@@ -50,7 +49,7 @@ class UserDataStoreImpl @Inject constructor(
                     throw exception
                 }
             }.map { preferences ->
-                preferences[PreferenceKeys.EMAIL_ADDRESS] ?: ""
+                preferences[PreferenceKeys.USER_EMAIL_ADDRESS] ?: ""
             }
     }
 
@@ -72,4 +71,46 @@ class UserDataStoreImpl @Inject constructor(
                 preferences[PreferenceKeys.PROFILE_AVAILABLE] ?: false
             }
     }
+
+    override suspend fun saveStringPreference(data: String, preferenceKey: Preferences.Key<String>) {
+        prefsDataStore.edit { preferences ->
+            preferences[preferenceKey] = data
+        }
+    }
+
+    override suspend fun getStringPreference(preferenceKey: Preferences.Key<String>): Flow<String> {
+        return prefsDataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }.map { preferences ->
+                preferences[preferenceKey] ?: ""
+            }
+    }
+
+    override suspend fun saveBooleanPreference(
+        data: Boolean,
+        preferenceKey: Preferences.Key<Boolean>
+    ) {
+        prefsDataStore.edit { preferences ->
+            preferences[preferenceKey] = data
+        }
+    }
+
+    override suspend fun getBooleanPreference(preferenceKey: Preferences.Key<Boolean>): Flow<Boolean> {
+        return prefsDataStore.data
+            .catch { exception ->
+                if (exception is IOException) {
+                    emit(emptyPreferences())
+                } else {
+                    throw exception
+                }
+            }.map { preferences ->
+                preferences[preferenceKey] ?: false
+            }
+    }
+
 }
