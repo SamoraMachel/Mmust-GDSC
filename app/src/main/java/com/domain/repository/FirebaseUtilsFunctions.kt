@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 import java.io.File
 
 interface FirebaseUtilsFunctions {
-    suspend fun uploadFile(file : File, uploadLocation : String = "resources/files/") : Flow<ObserverDto<ProgressiveDataDto<String>>>
+    suspend fun uploadFile(file : File, uploadLocation : String) : Flow<ObserverDto<ProgressiveDataDto<String>>>
 }
