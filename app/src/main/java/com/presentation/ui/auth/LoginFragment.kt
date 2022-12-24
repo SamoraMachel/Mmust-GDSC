@@ -13,7 +13,6 @@ import com.presentation.ui.auth.viewmodels.LoginViewModel
 import com.presentation.ui.home.HomeActivity
 import com.presentation.ui.states.AuthenticationUIState
 import com.presentation.ui.states.ProfileCreatedState
-import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.FragmentLoginBinding
 
 class LoginFragment : Fragment() {
@@ -30,7 +29,7 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentLoginBinding.inflate(inflater, container, false)
 
         binding.buttonLogin.setOnClickListener {
@@ -40,6 +39,12 @@ class LoginFragment : Fragment() {
                     binding.loginPassword.text.toString()
                 )
 
+            }
+        }
+
+        binding.buttonRegister.setOnClickListener {
+            if (checkPassword() && checkEmail()) {
+                navigateToProfileFragment(binding.loginEmail.text.toString(), binding.loginPassword.text.toString())
             }
         }
 
@@ -82,7 +87,7 @@ class LoginFragment : Fragment() {
                     binding.loadingText.text = "Checking for user profile..."
                 }
                 ProfileCreatedState.StandBy -> {
-                    
+
                 }
                 is ProfileCreatedState.Success -> {
                     binding.loadingLayout.visibility = View.GONE
@@ -116,9 +121,9 @@ class LoginFragment : Fragment() {
         } else true
     }
 
-    private fun navigateToProfileFragment() {
+    private fun navigateToProfileFragment(email : String, password : String) {
         val navController = findNavController()
-        val action = LoginFragmentDirections.actionLoginFragmentToProfileSetupFragment()
+        val action = LoginFragmentDirections.actionLoginFragmentToProfileSetupFragment(email, password)
         navController.navigate(action)
     }
 }

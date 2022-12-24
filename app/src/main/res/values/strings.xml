@@ -6,7 +6,7 @@
     <string name="bottomNavEvents">Events</string>
     <string name="bottomNavMembers">Members</string>
 
-    <string name="login">Sign In</string>
+    <string name="login">Login</string>
     <string name="register">Register</string>
 
     <string name="profile_greeting">Tell us About Yourself</string>

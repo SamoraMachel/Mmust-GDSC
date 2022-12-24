@@ -17,5 +17,12 @@
         android:id="@+id/profileSetupFragment"
         android:name="com.presentation.ui.auth.ProfileSetupFragment"
         android:label="fragment_profile_setup"
-        tools:layout="@layout/fragment_profile_setup" />
+        tools:layout="@layout/fragment_profile_setup" >
+        <argument
+            android:name="registrationEmail"
+            app:argType="string" />
+        <argument
+            android:name="registrationPassword"
+            app:argType="string" />
+    </fragment>
 </navigation>
