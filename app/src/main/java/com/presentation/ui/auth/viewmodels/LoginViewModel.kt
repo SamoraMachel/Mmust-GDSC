@@ -11,11 +11,13 @@ import com.presentation.models.ProfilePresentation
 import com.presentation.ui.states.AuthenticationUIState
 import com.presentation.ui.states.ProfileCreatedState
 import com.presentation.ui.states.SingleProfileUIState
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val registrationUseCase: RegistrationUseCase,

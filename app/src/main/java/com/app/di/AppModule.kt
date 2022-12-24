@@ -57,7 +57,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun providesUserDataStore(preferenceDataStore : DataStore<Preferences>): UserDataStoreImpl {
+    fun providesUserDataStore(preferenceDataStore : DataStore<Preferences>): UserDataStore {
         return UserDataStoreImpl(preferenceDataStore)
     }
 }

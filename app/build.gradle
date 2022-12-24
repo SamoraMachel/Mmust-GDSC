@@ -1,6 +1,7 @@
 plugins {
-    id 'com.android.application'
     id 'kotlin-kapt'
+    id 'com.google.dagger.hilt.android'
+    id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'com.google.gms.google-services'
     id 'com.google.firebase.crashlytics'
@@ -41,6 +42,10 @@ android {
 }
 
 dependencies {
+    // dependacy injection
+    implementation "com.google.dagger:hilt-android:2.44"
+    kapt "com.google.dagger:hilt-compiler:2.44"
+
 
     implementation 'androidx.core:core-ktx:1.7.0'
     implementation 'androidx.appcompat:appcompat:1.5.1'
@@ -61,10 +66,6 @@ dependencies {
     implementation 'com.google.firebase:firebase-auth-ktx:21.0.8'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
-
-    // Dependency Injection
-    implementation "com.google.dagger:hilt-android:2.42"
-    kapt "com.google.dagger:hilt-compiler:2.42"
 
     // glide
     implementation 'com.github.bumptech.glide:glide:4.13.2'
@@ -99,4 +100,8 @@ dependencies {
     androidTestImplementation 'io.mockk:mockk:1.10.5'
 
 
+}
+
+kapt {
+    correctErrorTypes true
 }

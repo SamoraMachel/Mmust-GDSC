@@ -60,7 +60,9 @@ class LoginFragment : Fragment() {
                     binding.loadingLayout.visibility = View.VISIBLE
                     binding.loadingText.text = "Logging In..."
                 }
-                AuthenticationUIState.StandBy -> TODO()
+                AuthenticationUIState.StandBy -> {
+
+                }
                 is AuthenticationUIState.Success -> {
                     binding.loadingLayout.visibility = View.GONE
                 }
@@ -79,7 +81,9 @@ class LoginFragment : Fragment() {
                     binding.loadingLayout.visibility = View.VISIBLE
                     binding.loadingText.text = "Checking for user profile..."
                 }
-                ProfileCreatedState.StandBy -> TODO()
+                ProfileCreatedState.StandBy -> {
+                    
+                }
                 is ProfileCreatedState.Success -> {
                     binding.loadingLayout.visibility = View.GONE
                 }
