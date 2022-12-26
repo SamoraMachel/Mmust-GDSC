@@ -102,6 +102,22 @@
                 android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_interest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Interests e.g Football, Reading, Hiking"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
@@ -187,9 +203,26 @@
             android:layout_marginEnd="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_dribble"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Dribble URL"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_behance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Behance URL"
                 android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 

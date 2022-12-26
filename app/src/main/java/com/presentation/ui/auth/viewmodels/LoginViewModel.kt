@@ -12,6 +12,7 @@ import com.domain.models.ProgressiveDataDto
 import com.domain.models.RegistrationDto
 import com.domain.repository.UserDataStore
 import com.domain.usecases.*
+import com.presentation.mappers.toDto
 import com.presentation.mappers.toPresentation
 import com.presentation.models.ProfilePresentation
 import com.presentation.models.RegistrationPresentation
@@ -68,8 +69,8 @@ class LoginViewModel @Inject constructor(
         }
     }
 
-    fun registerUser(registrationDto: RegistrationDto) = viewModelScope.launch {
-        registrationUseCase(registrationDto).collect { observer ->
+    fun registerUser(registrationPresentation: RegistrationPresentation) = viewModelScope.launch {
+        registrationUseCase(registrationPresentation.toDto()).collect { observer ->
             when(observer) {
                 is ObserverDto.Failure -> {
                     saveLoginDataStoreUseCase(false)

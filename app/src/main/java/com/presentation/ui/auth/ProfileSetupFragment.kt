@@ -6,6 +6,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Message
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,8 +14,13 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
+import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
+import com.presentation.models.ProfilePresentation
+import com.presentation.models.RegistrationPresentation
 import com.presentation.ui.auth.viewmodels.LoginViewModel
+import com.presentation.ui.states.AuthenticationUIState
 import com.presentation.ui.states.ProgressUIState
 import com.presentation.ui.states.StringUIState
 import com.test.mmustgdsc.R
@@ -26,9 +32,12 @@ class ProfileSetupFragment : Fragment() {
     private val GALLERY_IMAGE_REQUEST = 40
 
     private var profileImageToUpload : Uri? = null
+    private var profileImageLink : String = ""
 
     private var _binding : FragmentProfileSetupBinding? = null
     private val binding get() = _binding!!
+
+    private val args : ProfileSetupFragmentArgs by navArgs()
 
     private val viewModel : LoginViewModel by activityViewModels()
 
@@ -53,6 +62,7 @@ class ProfileSetupFragment : Fragment() {
         }
 
         uploadPhotoListener()
+        registrationListener()
         return binding.root
     }
 
@@ -73,6 +83,50 @@ class ProfileSetupFragment : Fragment() {
         }
     }
 
+    private fun registrationListener() {
+        viewModel.userRegistered.observe(viewLifecycleOwner) { state_listener ->
+            when(state_listener) {
+                is AuthenticationUIState.Failure -> {
+                    state_listener.message?.let { showSnackBar(it) }
+                    toggleLoadingVisibility(false)
+                }
+                AuthenticationUIState.Loading -> {
+                    binding.buttonProceed.visibility = View.INVISIBLE
+                    toggleLoadingVisibility(true, "Registering the User")
+                }
+                AuthenticationUIState.StandBy -> {
+
+                }
+                is AuthenticationUIState.Success -> {
+                    toggleLoadingVisibility(false)
+                }
+            }
+        }
+    }
+
+    private fun captureData() : RegistrationPresentation {
+        val profile = ProfilePresentation(
+            profileImageLink,
+            binding.profileFullName.text.toString(),
+            args.profileTItle,
+            binding.profileProfession.text.toString(),
+            binding.profileAbout.text.toString(),
+            binding.profileInstagram.text.toString(),
+            binding.profileTwitter.text.toString(),
+            binding.profileLinkedin.text.toString(),
+            binding.profileGithub.text.toString(),
+            binding.profileBehance.text.toString(),
+            binding.profileDribble.text.toString(),
+            binding.profileInterest.text.toString().split(',')
+        )
+
+        return RegistrationPresentation(
+            args.registrationEmail,
+            args.registrationPassword,
+            profile
+        )
+    }
+
 
 
     private fun uploadPhotoListener() {
@@ -80,25 +134,41 @@ class ProfileSetupFragment : Fragment() {
             when(state_listener) {
                 is ProgressUIState.Failure -> {
                     binding.buttonProceed.visibility = View.VISIBLE
-                    binding.loadingLayout.visibility = View.GONE
+                    toggleLoadingVisibility(false)
                     Toast.makeText(requireContext(), state_listener.message, Toast.LENGTH_LONG).show()
                 }
                 is ProgressUIState.Loading -> {
                     binding.buttonProceed.visibility = View.GONE
-                    binding.loadingLayout.visibility = View.VISIBLE
-                    binding.loadingText.text = "Uploading Image"
+                    toggleLoadingVisibility(true, "Uploading Image")
                 }
                 ProgressUIState.StandBy -> {
 
                 }
                 is ProgressUIState.Success -> {
-                    Toast.makeText(requireContext(), "Uploaded Successfully", Toast.LENGTH_LONG).show()
-                    binding.buttonProceed.visibility = View.VISIBLE
-                    binding.loadingLayout.visibility = View.GONE
+                    profileImageLink = state_listener.data.data!!
+                    viewModel.registerUser(captureData())
                 }
             }
         }
     }
+
+    private fun toggleLoadingVisibility(visible : Boolean, message: String? = null) {
+        if(visible) {
+            binding.loadingLayout.visibility = View.VISIBLE
+        } else {
+            binding.loadingLayout.visibility = View.GONE
+        }
+        binding.loadingText.text = message
+    }
+
+    private fun showSnackBar(message : String)  {
+        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction("Cancel") {
+            snackbar.dismiss()
+        }
+        snackbar.show()
+    }
+
 
     private fun openGallery() {
         val intent = Intent()
@@ -121,6 +191,7 @@ class ProfileSetupFragment : Fragment() {
             }
         }
     }
+
 
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(
