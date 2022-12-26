@@ -20,6 +20,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.presentation.models.ProfilePresentation
 import com.presentation.models.RegistrationPresentation
 import com.presentation.ui.auth.viewmodels.LoginViewModel
+import com.presentation.ui.home.HomeActivity
 import com.presentation.ui.states.AuthenticationUIState
 import com.presentation.ui.states.ProgressUIState
 import com.presentation.ui.states.StringUIState
@@ -91,7 +92,7 @@ class ProfileSetupFragment : Fragment() {
                     toggleLoadingVisibility(false)
                 }
                 AuthenticationUIState.Loading -> {
-                    binding.buttonProceed.visibility = View.INVISIBLE
+                    binding.buttonProceed.visibility = View.GONE
                     toggleLoadingVisibility(true, "Registering the User")
                 }
                 AuthenticationUIState.StandBy -> {
@@ -99,6 +100,7 @@ class ProfileSetupFragment : Fragment() {
                 }
                 is AuthenticationUIState.Success -> {
                     toggleLoadingVisibility(false)
+                    navigateToHomeActivity()
                 }
             }
         }
@@ -192,6 +194,11 @@ class ProfileSetupFragment : Fragment() {
         }
     }
 
+    private fun navigateToHomeActivity() {
+        val intent = Intent(requireContext(), HomeActivity::class.java)
+        startActivity(intent)
+        requireActivity().finish()
+    }
 
     @Deprecated("Deprecated in Java")
     override fun onRequestPermissionsResult(

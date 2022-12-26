@@ -57,12 +57,11 @@ class LoginViewModel @Inject constructor(
                 }
                 is ObserverDto.Loading -> _userLoggedIn.value = AuthenticationUIState.Loading
                 is ObserverDto.Success -> {
+                    _userLoggedIn.value = AuthenticationUIState.Success(observer.data?:false)
                     if(observer.data == true) {
                         saveLoginDataStoreUseCase(true)
-                        _userLoggedIn.value = AuthenticationUIState.Success(true)
                     } else {
                         saveLoginDataStoreUseCase(false)
-                        _userLoggedIn.value = AuthenticationUIState.Success(false)
                     }
                 }
             }
@@ -78,12 +77,15 @@ class LoginViewModel @Inject constructor(
                 }
                 is ObserverDto.Loading -> _userRegistered.value = AuthenticationUIState.Loading
                 is ObserverDto.Success -> {
+                    _userRegistered.value = AuthenticationUIState.Success(observer.data?:false)
                     if(observer.data == true) {
                         saveLoginDataStoreUseCase(true)
                         saveProfileUserDataStore(true)
+
                     } else {
                         saveProfileUserDataStore(false)
                         saveLoginDataStoreUseCase(false)
+
                     }
                 }
             }

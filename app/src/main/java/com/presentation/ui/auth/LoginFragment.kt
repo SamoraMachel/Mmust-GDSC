@@ -69,6 +69,7 @@ class LoginFragment : Fragment() {
 
                 }
                 is AuthenticationUIState.Success -> {
+                    navigateToHomeActivity()
                     binding.loadingLayout.visibility = View.GONE
                 }
             }
