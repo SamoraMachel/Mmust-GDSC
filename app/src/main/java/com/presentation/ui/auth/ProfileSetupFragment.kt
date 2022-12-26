@@ -48,7 +48,7 @@ class ProfileSetupFragment : Fragment() {
 
         binding.buttonProceed.setOnClickListener {
             profileImageToUpload?.let {
-                viewModel.uploadProfileImage(it)
+                viewModel.uploadProfileImage(requireContext(), it)
             }
         }
 
@@ -81,13 +81,12 @@ class ProfileSetupFragment : Fragment() {
                 is ProgressUIState.Failure -> {
                     binding.buttonProceed.visibility = View.VISIBLE
                     binding.loadingLayout.visibility = View.GONE
-                    binding.circularProgressBar.visibility = View.INVISIBLE
                     Toast.makeText(requireContext(), state_listener.message, Toast.LENGTH_LONG).show()
                 }
                 is ProgressUIState.Loading -> {
                     binding.buttonProceed.visibility = View.GONE
                     binding.loadingLayout.visibility = View.VISIBLE
-                    binding.loadingText.text = "Uploading Image ${state_listener.data.progress}"
+                    binding.loadingText.text = "Uploading Image"
                 }
                 ProgressUIState.StandBy -> {
 
