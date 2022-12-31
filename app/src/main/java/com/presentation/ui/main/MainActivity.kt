@@ -11,7 +11,7 @@ import com.test.mmustgdsc.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 
-@AndroidEntryPoint
+
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
@@ -21,22 +21,11 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setContentView(binding.root)
+
+
         binding = ActivityMainBinding.inflate(layoutInflater)
         mainActivityViewModel = ViewModelProvider(this)[MainActivityViewModel::class.java]
-
-        runBlocking {
-            mainActivityViewModel.checkUserLoggedIn()
-        }
-
-        if(mainActivityViewModel.userLoggedIn) {
-            navigateToHomeActivity()
-        } else {
-            setContentView(binding.root)
-        }
-
-        Log.d(TAG, "onCreate: userLoggedIn - ${mainActivityViewModel.userLoggedIn}")
-
-
     }
 
     private fun navigateToHomeActivity() {
