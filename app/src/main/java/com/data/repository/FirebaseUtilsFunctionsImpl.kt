@@ -37,10 +37,19 @@ class FirebaseUtilsFunctionsImpl @Inject constructor(
                     }
                 }
                 .addOnSuccessListener { taskSnapshot ->
-                    progress.data = fileReference.downloadUrl.toString()
-                    launch {
-                        send(ObserverDto.Success(progress))
-                    }
+                    fileReference.downloadUrl
+                        .addOnSuccessListener {
+                            progress.data = it.toString()
+                            launch {
+                                send(ObserverDto.Success(progress))
+                            }
+                        }
+                        .addOnFailureListener {
+                            launch {
+                                send(ObserverDto.Failure(false, it.message))
+                            }
+                        }
+
                 }
                 .addOnFailureListener {
                     launch {
