@@ -46,7 +46,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
                 .addOnSuccessListener {
                     val userProfile = hashMapOf(
                         "email"     to regModel.email,
-                        "fullName"  to regModel.profile.name,
+                        "name"  to regModel.profile.name,
                         "profileImage" to regModel.profile.profileImage,
                         "interests" to regModel.profile.interests,
                         "title"     to regModel.profile.title,

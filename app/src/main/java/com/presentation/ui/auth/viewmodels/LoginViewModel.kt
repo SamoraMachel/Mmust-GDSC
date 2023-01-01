@@ -3,9 +3,11 @@ package com.presentation.ui.auth.viewmodels
 import android.content.Context
 import android.net.Uri
 import androidx.core.net.toFile
+import androidx.datastore.preferences.core.Preferences
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.app.PreferenceKeys
 import com.domain.models.LoginDto
 import com.domain.models.ObserverDto
 import com.domain.models.ProgressiveDataDto
@@ -26,12 +28,14 @@ import java.io.File
 import javax.inject.Inject
 
 @HiltViewModel
-class LoginViewModel @Inject constructor(
+class
+LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val registrationUseCase: RegistrationUseCase,
     private val saveLoginDataStoreUseCase: SaveLoginDataStoreUseCase,
     private val profileEmailUseCase: FetchProfileEmailUseCase,
     private val saveProfileUserDataStore: SaveProfileDataStoreUseCase,
+    private val saveStringDataStoreUseCase: SaveStringDataStoreUseCase,
     private val uploadToFirebaseUseCase: UploadToFirebaseUseCase
 ): ViewModel() {
     private val _userLoggedIn : MutableStateFlow<AuthenticationUIState> = MutableStateFlow(AuthenticationUIState.StandBy)
@@ -60,6 +64,7 @@ class LoginViewModel @Inject constructor(
                     _userLoggedIn.value = AuthenticationUIState.Success(observer.data?:false)
                     if(observer.data == true) {
                         saveLoginDataStoreUseCase(true)
+                        checkProfileCreated(email)
                     } else {
                         saveLoginDataStoreUseCase(false)
                     }
@@ -81,6 +86,9 @@ class LoginViewModel @Inject constructor(
                     if(observer.data == true) {
                         saveLoginDataStoreUseCase(true)
                         saveProfileUserDataStore(true)
+                        saveStringDataStoreUseCase(registrationPresentation.profile.profileImage, PreferenceKeys.USER_PROFILE_IMAGE)
+                        saveStringDataStoreUseCase(registrationPresentation.profile.name, PreferenceKeys.USER_FULL_NAME)
+                        saveStringDataStoreUseCase(registrationPresentation.profile.title, PreferenceKeys.USER_TITLE)
 
                     } else {
                         saveProfileUserDataStore(false)
@@ -101,9 +109,13 @@ class LoginViewModel @Inject constructor(
                     if((observer.data ?: false) == true) {
                         _profileCreated.value = ProfileCreatedState.Success(true)
                         saveProfileUserDataStore(true)
+                        saveStringDataStoreUseCase(observer.data!!.profileImage, PreferenceKeys.USER_PROFILE_IMAGE)
+                        saveStringDataStoreUseCase(observer.data.name, PreferenceKeys.USER_FULL_NAME)
+                        saveStringDataStoreUseCase(observer.data.title, PreferenceKeys.USER_TITLE)
                     } else {
                         _profileCreated.value = ProfileCreatedState.Success(false)
                         saveProfileUserDataStore(false)
+
                     }
                 }
             }
