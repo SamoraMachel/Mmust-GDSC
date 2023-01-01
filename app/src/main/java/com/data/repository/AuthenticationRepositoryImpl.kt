@@ -47,6 +47,7 @@ class AuthenticationRepositoryImpl @Inject constructor(
                     val userProfile = hashMapOf(
                         "email"     to regModel.email,
                         "name"  to regModel.profile.name,
+                        "description" to regModel.profile.description,
                         "profileImage" to regModel.profile.profileImage,
                         "interests" to regModel.profile.interests,
                         "title"     to regModel.profile.title,

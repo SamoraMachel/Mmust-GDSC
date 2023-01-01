@@ -143,7 +143,7 @@ class ProfileRepositoryImpl @Inject constructor(
 
         try {
             firebaseFirestore.collection("profiles")
-                .whereEqualTo("profession", "Members")
+                .whereEqualTo("title", "Member")
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
                     val profileList : MutableList<ProfileDto> = mutableListOf()
