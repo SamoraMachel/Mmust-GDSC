@@ -35,7 +35,6 @@
     <string name="resource_description">Files, Videos, Articles or Websites useful for studying</string>
 
 
-
     <!-- Sync Preferences -->
     <string name="sync_title">Sync email periodically</string>
     <string name="attachment_title">Download incoming attachments</string>

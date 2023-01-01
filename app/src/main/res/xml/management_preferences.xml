@@ -1,69 +1,83 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        app:allowDividerBelow="false"
-        app:icon="@drawable/ic_baseline_add_24"
-        app:singleLineTitle="true"
-        app:title="@string/add_header">
+        app:allowDividerAbove="true"
+        app:allowDividerBelow="true"
+        app:layout="@layout/settings_line_layout"
+        app:singleLineTitle="false">
 
         <Preference
+            app:allowDividerBelow="true"
+            app:iconSpaceReserved="false"
             app:key="add_track"
-            app:title="@string/track_title"
-            app:summary="@string/track_description"/>
+            app:title="Add Track" />
 
         <Preference
+            app:allowDividerAbove="true"
+            app:allowDividerBelow="true"
+            app:iconSpaceReserved="false"
             app:key="add_resource"
-            app:title="@string/resource_title"
-            app:summary="@string/resource_description"/>
+            app:title="Add Resource" />
 
         <Preference
+            app:allowDividerAbove="true"
+            app:iconSpaceReserved="false"
             app:key="add_event"
-            app:title="@string/event_title"
-            app:summary="@string/event_description"/>
+            app:title="Add Event" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:allowDividerAbove="true"
+        app:allowDividerAbove="false"
         app:icon="@drawable/ic_baseline_edit_24"
+        app:layout="@layout/settings_line_layout"
         app:title="@string/edit_header">
 
         <Preference
+            app:allowDividerBelow="true"
+            app:iconSpaceReserved="false"
             app:key="edit_track"
-            app:title="@string/track_title"
-            app:summary="@string/track_description"/>
+            app:title="Edit Track" />
 
         <Preference
+            app:allowDividerAbove="true"
+            app:allowDividerBelow="true"
+            app:iconSpaceReserved="false"
             app:key="edit_resource"
-            app:title="@string/resource_title"
-            app:summary="@string/resource_description"/>
+            app:title="Edit Resource" />
 
         <Preference
+            app:allowDividerAbove="true"
+            app:iconSpaceReserved="false"
             app:key="edit_event"
-            app:title="@string/event_title"
-            app:summary="@string/event_description"/>
+            app:title="Edit Event" />
 
     </PreferenceCategory>
 
     <PreferenceCategory
-        app:allowDividerAbove="true"
+        app:allowDividerAbove="false"
         app:icon="@drawable/ic_baseline_delete_24"
+        app:layout="@layout/settings_line_layout"
         app:title="@string/delete_header">
 
         <Preference
+            app:allowDividerBelow="true"
+            app:iconSpaceReserved="false"
             app:key="delete_track"
-            app:summary="@string/track_description"
-            app:title="@string/track_title" />
+            app:title="Delete Track" />
 
         <Preference
+            app:allowDividerAbove="true"
+            app:allowDividerBelow="true"
+            app:iconSpaceReserved="false"
             app:key="delete_resource"
-            app:summary="@string/resource_description"
-            app:title="@string/resource_title" />
+            app:title="Delete Resource" />
 
         <Preference
+            app:allowDividerAbove="true"
+            app:iconSpaceReserved="false"
             app:key="delete_event"
-            app:summary="@string/event_description"
-            app:title="@string/event_title" />
+            app:title="Delete Event" />
 
     </PreferenceCategory>
 
