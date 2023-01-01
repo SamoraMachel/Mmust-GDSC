@@ -1,10 +1,17 @@
 package com.presentation.ui.home
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.activity.viewModels
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.bumptech.glide.Glide
+import com.presentation.ui.home.viewmodels.HomeActivityViewModel
+import com.presentation.ui.home.viewmodels.ProfileLinkState
+import com.presentation.ui.home.viewmodels.TitleState
+import com.presentation.ui.settings.ManagementActivity
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
@@ -14,19 +21,55 @@ class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
 
+    private lateinit var homeViewModel : HomeActivityViewModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Glide.with(applicationContext)
-            .load("https://images.unsplash.com/photo-1618005198919-d3d4b5a92ead?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80")
-            .circleCrop()
-            .into(binding.userProfileImage)
+        homeViewModel = ViewModelProvider(this)[HomeActivityViewModel::class.java]
+
+        homeViewModel.profileLink.observe(this) { state_listener ->
+            when(state_listener) {
+                is ProfileLinkState.Completed -> {
+                    Glide.with(applicationContext)
+                        .load(state_listener.link)
+                        .circleCrop()
+                        .into(binding.userProfileImage)
+                }
+                else -> {
+
+                }
+            }
+        }
+
+        homeViewModel.userTitle.observe(this) { state_listener ->
+            when(state_listener) {
+                is TitleState.Completed -> {
+                    settingScreenListener()
+//                    if (state_listener.title.equals("Lead")) {
+//                        settingScreenListener()
+//                    }
+                }
+                else -> {
+
+                }
+            }
+        }
+
+
 
         // setup bottom navigation
         val navController = findNavController(R.id.fragmentContainerView)
         binding.bottomNavigationView.setupWithNavController(navController = navController)
+    }
+
+    private fun settingScreenListener() {
+        binding.userProfileImage.setOnClickListener {
+            val intent = Intent(this, ManagementActivity::class.java)
+            startActivity(intent)
+        }
     }
 }   

@@ -45,6 +45,7 @@ dependencies {
     // dependacy injection
     implementation "com.google.dagger:hilt-android:2.44"
     implementation 'com.google.firebase:firebase-storage-ktx:20.1.0'
+    implementation 'androidx.preference:preference:1.1.1'
     kapt "com.google.dagger:hilt-compiler:2.44"
 
 
