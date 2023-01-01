@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.auth.viewmodels.LoginViewModel
 import com.presentation.ui.home.HomeActivity
 import com.presentation.ui.states.AuthenticationUIState
@@ -58,8 +59,7 @@ class LoginFragment : Fragment() {
             when(state_listener) {
                 is AuthenticationUIState.Failure -> {
                     binding.loadingLayout.visibility = View.GONE
-                    Toast.makeText(requireContext(), state_listener.message, Toast.LENGTH_LONG)
-                        .show()
+                    state_listener.message?.let { showSnackBar(it) }
                 }
                 AuthenticationUIState.Loading -> {
                     binding.loadingLayout.visibility = View.VISIBLE
@@ -69,6 +69,7 @@ class LoginFragment : Fragment() {
 
                 }
                 is AuthenticationUIState.Success -> {
+                    navigateToHomeActivity()
                     binding.loadingLayout.visibility = View.GONE
                 }
             }
@@ -125,5 +126,13 @@ class LoginFragment : Fragment() {
         val navController = findNavController()
         val action = LoginFragmentDirections.actionLoginFragmentToProfileSetupFragment(email, password)
         navController.navigate(action)
+    }
+
+    private fun showSnackBar(message : String)  {
+        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
+        snackbar.setAction("Cancel") {
+            snackbar.dismiss()
+        }
+        snackbar.show()
     }
 }

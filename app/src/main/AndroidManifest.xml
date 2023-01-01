@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.test.mmustgdsc">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:name="com.presentation.BaseApplication"
         android:allowBackup="true"
@@ -15,17 +17,26 @@
         android:theme="@style/Theme.MMUSTGDSC"
         tools:targetApi="31">
         <activity
-            android:name="com.presentation.ui.home.HomeActivity"
-            android:exported="false" />
-        <activity
-            android:name="com.presentation.ui.MainActivity"
-            android:exported="true"
-            android:theme="@style/Theme.MMUSTGDSC.NoActionBar">
+            android:name="com.presentation.ui.main.SplashScreenActivity"
+            android:theme="@style/SplashTheme"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <meta-data
+                android:name="android.app.lib_name"
+                android:value="" />
+        </activity>
+        <activity
+            android:name="com.presentation.ui.home.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name="com.presentation.ui.main.MainActivity"
+            android:exported="true"
+            android:theme="@style/Theme.MMUSTGDSC.NoActionBar">
         </activity>
 
         <meta-data

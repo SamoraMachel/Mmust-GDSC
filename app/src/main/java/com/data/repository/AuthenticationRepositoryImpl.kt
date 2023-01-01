@@ -46,16 +46,17 @@ class AuthenticationRepositoryImpl @Inject constructor(
                 .addOnSuccessListener {
                     val userProfile = hashMapOf(
                         "email"     to regModel.email,
-                        "fullName"  to regModel.fullName,
-                        "profileImage" to regModel.profileImage,
-                        "interests" to regModel.interests,
-                        "title"     to regModel.title,
-                        "profession" to regModel.profession,
-                        "twitter"   to regModel.twitter,
-                        "linkedIn"  to regModel.linkedin,
-                        "github"    to regModel.github,
-                        "behance"   to regModel.behance,
-                        "dribble"   to regModel.dribble
+                        "name"  to regModel.profile.name,
+                        "description" to regModel.profile.description,
+                        "profileImage" to regModel.profile.profileImage,
+                        "interests" to regModel.profile.interests,
+                        "title"     to regModel.profile.title,
+                        "profession" to regModel.profile.profession,
+                        "twitter"   to regModel.profile.twitter,
+                        "linkedIn"  to regModel.profile.linkedin,
+                        "github"    to regModel.profile.github,
+                        "behance"   to regModel.profile.behance,
+                        "dribble"   to regModel.profile.dribble
                     )
 
                     firebaseFirestore.collection("profiles")

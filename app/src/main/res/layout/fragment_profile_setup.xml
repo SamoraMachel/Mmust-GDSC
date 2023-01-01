@@ -102,6 +102,22 @@
                 android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_interest"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Interests e.g Football, Reading, Hiking"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
         <TextView
             android:id="@+id/textView6"
             android:layout_width="match_parent"
@@ -187,9 +203,26 @@
             android:layout_marginEnd="10dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_dribble"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Dribble URL"
+                android:inputType="textMultiLine" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="10dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/profile_behance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Behance URL"
                 android:inputType="textMultiLine" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -208,6 +241,47 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:cornerRadius="4dp"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/loading_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="24dp"
+            android:elevation="0dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:visibility="visible">
+
+            <ProgressBar
+                android:id="@+id/circular_progress_bar"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible" />
+
+            <TextView
+                android:id="@+id/loading_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:fontFamily="@font/roboto"
+                android:text="Loading..."
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/circular_progress_bar"
+                app:layout_constraintStart_toStartOf="@+id/circular_progress_bar"
+                app:layout_constraintTop_toBottomOf="@+id/circular_progress_bar" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 </ScrollView>

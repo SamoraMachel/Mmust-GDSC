@@ -12,4 +12,5 @@ object PreferenceKeys {
     val USER_EMAIL_ADDRESS = stringPreferencesKey("emailAddress")
     val USER_PROFILE_IMAGE = stringPreferencesKey("userProfileImage")
     val USER_FULL_NAME =   stringPreferencesKey("userFullName")
+    val USER_TITLE = stringPreferencesKey("userTitle")
  }
