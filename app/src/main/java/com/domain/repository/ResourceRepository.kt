@@ -12,4 +12,8 @@ interface ResourceRepository {
     suspend fun getResourceByLevel(level : String, track: String) : Flow<ObserverDto<List<ResourceDto>>>
 
     suspend fun getLevels() : Flow<ObserverDto<List<LevelDto>>>
+
+    suspend fun addResource(resource : ResourceDto) : Flow<ObserverDto<Boolean>>
+    suspend fun editResource(id: String, resource: ResourceDto) : Flow<ObserverDto<Boolean>>
+    suspend fun deleteResource(id: String) : Flow<ObserverDto<Boolean>>
 }

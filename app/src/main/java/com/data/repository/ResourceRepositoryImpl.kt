@@ -1,6 +1,7 @@
 package com.data.repository
 
 import android.util.Log
+import com.app.Constants
 import com.domain.models.LevelDto
 import com.domain.models.ObserverDto
 import com.domain.models.ResourceDto
@@ -20,7 +21,7 @@ class ResourceRepositoryImpl @Inject constructor(
     override suspend fun getResources(): Flow<ObserverDto<List<ResourceDto>>> = channelFlow {
         try {
             send(ObserverDto.Loading())
-            firebaseFirestore.collection("resources")
+            firebaseFirestore.collection(Constants.RESOURCE_STRING)
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
                     val resourceList : MutableList<ResourceDto> = mutableListOf()
@@ -57,7 +58,7 @@ class ResourceRepositoryImpl @Inject constructor(
     override suspend fun getResourceByLevel(level: String, track: String): Flow<ObserverDto<List<ResourceDto>>> = channelFlow {
         try {
             send(ObserverDto.Loading())
-            firebaseFirestore.collection("resources")
+            firebaseFirestore.collection(Constants.RESOURCE_STRING)
                 .whereEqualTo("track_title", track)
                 .whereEqualTo("level", level)
                 .get()
@@ -95,7 +96,7 @@ class ResourceRepositoryImpl @Inject constructor(
     override suspend fun getLevels(): Flow<ObserverDto<List<LevelDto>>> = channelFlow {
         try {
             send(ObserverDto.Loading())
-            firebaseFirestore.collection("resources")
+            firebaseFirestore.collection(Constants.RESOURCE_STRING)
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
                     val levelList : MutableList<LevelDto> = mutableListOf()
@@ -108,6 +109,103 @@ class ResourceRepositoryImpl @Inject constructor(
                     }
                     launch {
                         send(ObserverDto.Success(levelList))
+                    }
+                }
+                .addOnFailureListener {
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
+                    }
+                }
+        } catch (error : IOException) {
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+        } catch (error : Exception) {
+            send(ObserverDto.Failure(false, error.message))
+        }
+        awaitClose()
+    }
+
+    override suspend fun addResource(resource: ResourceDto): Flow<ObserverDto<Boolean>> = channelFlow {
+        try {
+            send(ObserverDto.Loading())
+
+            val resourceData = hashMapOf(
+                "description" to resource.description,
+                "image" to resource.image,
+                "isVideo" to resource.isVideo,
+                "level" to resource.level,
+                "link" to resource.link,
+                "title" to resource.title,
+                "track_title" to resource.track_title
+            )
+
+            firebaseFirestore.collection(Constants.RESOURCE_STRING)
+                .add(resourceData)
+                .addOnSuccessListener {
+                    launch {
+                        send(ObserverDto.Success(true))
+                    }
+                }
+                .addOnFailureListener {
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
+                    }
+                }
+
+        } catch (error : IOException) {
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+        } catch (error : Exception) {
+            send(ObserverDto.Failure(false, error.message))
+        }
+        awaitClose()
+    }
+
+    override suspend fun editResource(
+        id: String,
+        resource: ResourceDto
+    ): Flow<ObserverDto<Boolean>> = channelFlow{
+        try {
+            send(ObserverDto.Loading())
+
+            val resourceData : MutableMap<String, Any?> = mutableMapOf(
+                "description" to resource.description,
+                "image" to resource.image,
+                "isVideo" to resource.isVideo,
+                "level" to resource.level,
+                "link" to resource.link,
+                "title" to resource.title,
+                "track_title" to resource.track_title
+            )
+
+            firebaseFirestore.collection(Constants.RESOURCE_STRING).document(id)
+                .update(resourceData)
+                .addOnSuccessListener {
+                    launch {
+                        send(ObserverDto.Success(true))
+                    }
+                }
+                .addOnFailureListener {
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
+                    }
+                }
+
+        } catch (error : IOException) {
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+        } catch (error : Exception) {
+            send(ObserverDto.Failure(false, error.message))
+        }
+        awaitClose()
+    }
+
+    override suspend fun deleteResource(id: String): Flow<ObserverDto<Boolean>> = channelFlow{
+        try {
+            send(ObserverDto.Loading())
+
+            firebaseFirestore.collection(Constants.RESOURCE_STRING).document(id)
+                .delete()
+                .addOnSuccessListener {
+                    launch {
+                        send(ObserverDto.Success(true))
                     }
                 }
                 .addOnFailureListener {

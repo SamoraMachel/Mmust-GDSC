@@ -8,6 +8,9 @@ import kotlinx.coroutines.flow.StateFlow
 
 interface TrackRepository {
     suspend fun getTracks() : Flow<ObserverDto<List<TrackDto>>>
-
     suspend fun getSessions() : Flow<ObserverDto<List<SessionDto>>>
+
+    suspend fun addTrack(track : TrackDto) : Flow<ObserverDto<Boolean>>
+    suspend fun editTrack(id : String, track: TrackDto) : Flow<ObserverDto<Boolean>>
+    suspend fun deleteTrack(id : String) : Flow<ObserverDto<Boolean>>
 }

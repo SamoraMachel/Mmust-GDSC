@@ -1,6 +1,7 @@
 package com.data.repository
 
 import android.util.Log
+import com.app.Constants
 import com.domain.models.ObserverDto
 import com.domain.models.ProfileDto
 import com.domain.models.SessionDto
@@ -26,7 +27,7 @@ class TrackRepositoryImpl @Inject constructor(
         val trackList : MutableList<TrackDto> = mutableListOf()
         try {
             send(ObserverDto.Loading())
-            firebaseFirestore.collection("tracks")
+            firebaseFirestore.collection(Constants.TRACKS_STRING)
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
                     snapshot.documents.forEach { document ->
@@ -68,7 +69,7 @@ class TrackRepositoryImpl @Inject constructor(
         try {
             send(ObserverDto.Loading())
 
-            firebaseFirestore.collection("tracks")
+            firebaseFirestore.collection(Constants.TRACKS_STRING)
                 .get()
                 .addOnSuccessListener { snapshot : QuerySnapshot ->
                     snapshot.documents.forEach { document ->
@@ -119,6 +120,100 @@ class TrackRepositoryImpl @Inject constructor(
         } catch (error : Exception) {
             send(ObserverDto.Failure(false, error.message))
             Log.d(TAG, "General Error -> getTracks: ${error.message}")
+        }
+        awaitClose()
+    }
+
+    override suspend fun addTrack(track: TrackDto): Flow<ObserverDto<Boolean>> = channelFlow {
+        try {
+            send(ObserverDto.Loading())
+
+            val trackData = hashMapOf(
+                "day" to track.day,
+                "lead" to track.lead,
+                "levels" to track.levels,
+                "timeRange" to track.timeRange,
+                "title" to track.title,
+                "image" to track.image,
+                "description" to track.description
+            )
+
+            firebaseFirestore.collection(Constants.TRACKS_STRING)
+                .add(trackData)
+                .addOnSuccessListener {
+                    launch {
+                        send(ObserverDto.Success(true))
+                    }
+                }
+                .addOnFailureListener {
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
+                    }
+                }
+
+        } catch (error : IOException) {
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+        } catch (error : Exception) {
+            send(ObserverDto.Failure(false, error.message))
+        }
+        awaitClose()
+    }
+
+    override suspend fun editTrack(id: String, track: TrackDto): Flow<ObserverDto<Boolean>> = channelFlow {
+        try {
+            send(ObserverDto.Loading())
+
+            val trackData = hashMapOf(
+                "day" to track.day,
+                "lead" to track.lead,
+                "levels" to track.levels,
+                "timeRange" to track.timeRange,
+                "title" to track.title,
+                "image" to track.image,
+                "description" to track.description
+            )
+
+            firebaseFirestore.collection(Constants.TRACKS_STRING).document(id)
+                .update(trackData)
+                .addOnSuccessListener {
+                    launch {
+                        send(ObserverDto.Success(true))
+                    }
+                }
+                .addOnFailureListener {
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
+                    }
+                }
+
+        } catch (error : IOException) {
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+        } catch (error : Exception) {
+            send(ObserverDto.Failure(false, error.message))
+        }
+        awaitClose()
+    }
+
+    override suspend fun deleteTrack(id: String): Flow<ObserverDto<Boolean>> = channelFlow {
+        try {
+            send(ObserverDto.Loading())
+
+            firebaseFirestore.collection(Constants.TRACKS_STRING).document(id)
+                .delete()
+                .addOnSuccessListener {
+                    launch {
+                        send(ObserverDto.Success(true))
+                    }
+                }
+                .addOnFailureListener {
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
+                    }
+                }
+        } catch (error : IOException) {
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+        } catch (error : Exception) {
+            send(ObserverDto.Failure(false, error.message))
         }
         awaitClose()
     }

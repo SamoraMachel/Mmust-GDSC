@@ -9,4 +9,8 @@ interface EventRepository {
     suspend fun getUpcomingSession() : Flow<ObserverDto<List<EventDto>>>
 
     suspend fun getPastSession() : Flow<ObserverDto<List<EventDto>>>
+
+    suspend fun addEvent(event: EventDto) : Flow<ObserverDto<Boolean>>
+    suspend fun editEvent(id: String, event: EventDto) : Flow<ObserverDto<Boolean>>
+    suspend fun deleteEvent(id: String) : Flow<ObserverDto<Boolean>>
 }
