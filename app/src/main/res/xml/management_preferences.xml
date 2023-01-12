@@ -1,4 +1,5 @@
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
         app:allowDividerAbove="true"
@@ -10,14 +11,20 @@
             app:allowDividerBelow="true"
             app:iconSpaceReserved="false"
             app:key="add_track"
-            app:title="Add Track" />
+            app:title="Add Track">
+            <intent android:targetPackage="com.test.mmustgdsc"
+                android:targetClass="com.presentation.ui.settings.track.AddTrackActivity" />
+        </Preference>
 
         <Preference
             app:allowDividerAbove="true"
             app:allowDividerBelow="true"
             app:iconSpaceReserved="false"
             app:key="add_resource"
-            app:title="Add Resource" />
+            app:title="Add Resource">
+            <intent android:targetPackage="com.test.mmustgdsc"
+                android:targetClass="com.presentation.ui.settings.resource.AddResourceActivity" />
+        </Preference>
 
         <Preference
             app:allowDividerAbove="true"

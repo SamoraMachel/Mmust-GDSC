@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.presentation.ui.settings.track.AddTrackActivity">
+    tools:context="com.presentation.ui.settings.resource.AddResourceActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar2"
+        android:id="@+id/toolbar4"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="@color/gdsc_green"
@@ -18,18 +18,18 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/textView17"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:fontFamily="@font/roboto"
-        android:text="Add Track"
+        android:text="Add Resource"
         android:textColor="@color/white"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/toolbar2"
+        app:layout_constraintBottom_toBottomOf="@+id/toolbar4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/toolbar2" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -37,7 +37,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbar2">
+        app:layout_constraintTop_toBottomOf="@+id/toolbar4">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -51,7 +51,7 @@
                 android:layout_marginBottom="16dp">
 
                 <ImageView
-                    android:id="@+id/track_image"
+                    android:id="@+id/add_resource_image"
                     android:layout_width="200dp"
                     android:layout_height="200dp"
                     android:layout_marginTop="8dp"
@@ -75,8 +75,8 @@
                     app:cardBackgroundColor="#4285F4"
                     app:cardCornerRadius="10dp"
                     app:cardElevation="6dp"
-                    app:layout_constraintBottom_toBottomOf="@+id/track_image"
-                    app:layout_constraintEnd_toEndOf="@+id/track_image">
+                    app:layout_constraintBottom_toBottomOf="@+id/add_resource_image"
+                    app:layout_constraintEnd_toEndOf="@+id/add_resource_image">
 
                     <ImageView
                         android:id="@+id/imageView4"
@@ -96,10 +96,10 @@
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/track_title"
+                    android:id="@+id/add_resource_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Track Title" />
+                    android:hint="Resource Title" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,10 +110,10 @@
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/track_description"
+                    android:id="@+id/add_resource_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Track Description" />
+                    android:hint="Resource Description" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -123,10 +123,10 @@
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/track_day"
+                    android:id="@+id/add_resource_link"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Day when taught" />
+                    android:hint="Resource Link" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -136,10 +136,10 @@
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/track_time_range"
+                    android:id="@+id/add_resource_track"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Time Range when held" />
+                    android:hint="Track" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -149,46 +149,14 @@
                 android:layout_marginBottom="16dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/track_lead"
+                    android:id="@+id/add_resource_level"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Lead of the track" />
+                    android:hint="Level of resource" />
             </com.google.android.material.textfield.TextInputLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/imageView3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:srcCompat="@drawable/ic_baseline_add_24"
-                    app:tint="@color/gdsc_green" />
-
-                <TextView
-                    android:id="@+id/textView15"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/roboto"
-                    android:text="Add Levels"
-                    android:textColor="@color/black"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/track_level_recycler_view"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="16dp" />
 
             <Button
-                android:id="@+id/upload_track"
+                android:id="@+id/upload_resource"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -203,27 +171,5 @@
 
         </LinearLayout>
     </ScrollView>
-
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#BFFFFFFF"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ProgressBar
-            android:id="@+id/progressBar2"
-            style="?android:attr/progressBarStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:indeterminate="true"
-            android:indeterminateTint="#4285F4"
-            android:progressTint="#4285F4" />
-    </FrameLayout>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
