@@ -1,14 +1,17 @@
 package com.presentation.ui.settings.track
 
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
+import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.presentation.models.TrackPresentation
 import com.presentation.ui.states.BooleanUIState
+import com.presentation.ui.utils.UploadActivity
 import com.test.mmustgdsc.databinding.ActivityAddTrackBinding
 
-class AddTrackActivity : AppCompatActivity() {
+class AddTrackActivity : UploadActivity() {
     private lateinit var binding : ActivityAddTrackBinding
 
     private val viewModel : TrackActionViewModel by viewModels()
@@ -18,6 +21,10 @@ class AddTrackActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddTrackBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.addTrackImageSelect.setOnClickListener {
+            requestGallery()
+        }
     }
 
     private fun collectData() : TrackPresentation {
@@ -57,5 +64,11 @@ class AddTrackActivity : AppCompatActivity() {
             snackbar.dismiss()
         }
         snackbar.show()
+    }
+
+    override fun previewImage(uri: Uri) {
+        Glide.with(applicationContext)
+            .load(uri)
+            .into(binding.trackImage)
     }
 }
