@@ -3,13 +3,9 @@ package com.presentation.ui.settings.track
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.viewModels
-import androidx.lifecycle.lifecycleScope
-import com.data.models.Track
 import com.google.android.material.snackbar.Snackbar
 import com.presentation.models.TrackPresentation
-import com.presentation.ui.settings.resource.TrackActionViewModel
 import com.presentation.ui.states.BooleanUIState
-import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.ActivityAddTrackBinding
 
 class AddTrackActivity : AppCompatActivity() {

@@ -1,4 +1,4 @@
-package com.presentation.ui.settings.resource
+package com.presentation.ui.settings.track
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

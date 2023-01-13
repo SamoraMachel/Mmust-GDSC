@@ -24,17 +24,12 @@ import com.presentation.ui.home.HomeActivity
 import com.presentation.ui.states.AuthenticationUIState
 import com.presentation.ui.states.ProgressUIState
 import com.presentation.ui.states.StringUIState
+import com.presentation.ui.utils.UploadFragment
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.FragmentProfileSetupBinding
 
 
-class ProfileSetupFragment : Fragment() {
-    private val GALLERY_REQUEST = 400
-    private val GALLERY_IMAGE_REQUEST = 40
-
-    private var profileImageToUpload : Uri? = null
-    private var profileImageLink : String = ""
-
+class ProfileSetupFragment : UploadFragment() {
     private var _binding : FragmentProfileSetupBinding? = null
     private val binding get() = _binding!!
 
@@ -57,7 +52,7 @@ class ProfileSetupFragment : Fragment() {
         }
 
         binding.buttonProceed.setOnClickListener {
-            profileImageToUpload?.let {
+            imageToUpload?.let {
                 viewModel.uploadProfileImage(requireContext(), it)
             }
         }
@@ -65,23 +60,6 @@ class ProfileSetupFragment : Fragment() {
         uploadPhotoListener()
         registrationListener()
         return binding.root
-    }
-
-    private fun requestGallery() {
-        if (ContextCompat.checkSelfPermission(
-                requireContext(),
-                android.Manifest.permission.READ_EXTERNAL_STORAGE) ==
-                PackageManager.PERMISSION_GRANTED
-        ) {
-            openGallery()
-        } else {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                requestPermissions(
-                    arrayOf(android.Manifest.permission.READ_EXTERNAL_STORAGE),
-                    GALLERY_REQUEST
-                )
-            }
-        }
     }
 
     private fun registrationListener() {
@@ -108,7 +86,7 @@ class ProfileSetupFragment : Fragment() {
 
     private fun captureData() : RegistrationPresentation {
         val profile = ProfilePresentation(
-            profileImageLink,
+            imageLink,
             binding.profileFullName.text.toString(),
             args.profileTItle,
             binding.profileProfession.text.toString(),
@@ -147,7 +125,7 @@ class ProfileSetupFragment : Fragment() {
 
                 }
                 is ProgressUIState.Success -> {
-                    profileImageLink = state_listener.data.data!!
+                    imageLink = state_listener.data.data!!
                     viewModel.registerUser(captureData())
                 }
             }
@@ -171,28 +149,12 @@ class ProfileSetupFragment : Fragment() {
         snackbar.show()
     }
 
-
-    private fun openGallery() {
-        val intent = Intent()
-        intent.type = "image/*"
-        intent.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, false)
-        intent.action = Intent.ACTION_GET_CONTENT
-        startActivityForResult(Intent.createChooser(intent, "Select Picture"), GALLERY_IMAGE_REQUEST)
+    override fun previewImage(uri: Uri) {
+        Glide.with(this)
+            .load(uri)
+            .into(binding.profileImage)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(requestCode == GALLERY_IMAGE_REQUEST && resultCode == Activity.RESULT_OK) {
-            val imageurl  = data?.data
-            imageurl?.let { uri ->
-                profileImageToUpload = uri
-                Glide.with(this)
-                    .load(uri)
-                    .into(binding.profileImage)
-            }
-        }
-    }
 
     private fun navigateToHomeActivity() {
         val intent = Intent(requireContext(), HomeActivity::class.java)
@@ -200,21 +162,6 @@ class ProfileSetupFragment : Fragment() {
         requireActivity().finish()
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<out String>,
-        grantResults: IntArray
-    ) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        when(requestCode) {
-            GALLERY_REQUEST -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
-                    openGallery()
-                }
-            }
-        }
-    }
 
     override fun onDestroy() {
         super.onDestroy()
