@@ -13,7 +13,7 @@ open class UploadActivity : AppCompatActivity() {
     private val GALLERY_IMAGE_REQUEST = 40
 
     var imageLink : String = ""
-    private var imageToUpload : Uri? = null
+    var imageToUpload : Uri? = null
 
     fun requestGallery() {
         if (ContextCompat.checkSelfPermission(

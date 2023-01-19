@@ -10,9 +10,11 @@ fun LoginDto.toPresentation() : LoginPresentation {
 }
 
 fun ProfileDto.toPresentation() : ProfilePresentation {
-    return ProfilePresentation(
+    val profile = ProfilePresentation(
         profileImage, name, title, profession, description, instagram, twitter, linkedin, github, behance, dribble, interests
     )
+    profile.userId = userId
+    return profile
 }
 
 fun RegistrationDto.toPresentation() : RegistrationPresentation {

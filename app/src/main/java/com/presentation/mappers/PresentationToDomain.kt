@@ -15,9 +15,11 @@ fun RegistrationPresentation.toDto(): RegistrationDto {
     )
 }
 fun ProfilePresentation.toDto(): ProfileDto {
-    return ProfileDto(
+    val profile = ProfileDto(
         profileImage, name, title, profession, description, instagram, twitter, linkedin, github, behance, dribble, interests
     )
+    profile.userId = userId
+    return profile
 }
 
 fun TrackPresentation.toDto(): TrackDto {
