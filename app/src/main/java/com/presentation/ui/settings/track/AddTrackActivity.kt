@@ -5,6 +5,7 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -12,8 +13,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.presentation.mappers.toPresentation
 import com.presentation.models.TrackPresentation
 import com.presentation.ui.states.BooleanUIState
+import com.presentation.ui.states.ProfileListUIState
 import com.presentation.ui.states.ProgressUIState
 import com.presentation.ui.utils.UploadActivity
 import com.test.mmustgdsc.R
@@ -49,8 +52,33 @@ class AddTrackActivity : UploadActivity() {
             openLevelDialogue()
         }
 
+        binding.trackLead.threshold = 4
+        leadsListListener()
+
         uploadTrackImageListener()
         uploadTrackListener()
+    }
+
+    private fun leadsListListener() {
+        viewModel.leadsList.observe(this) { state_listener ->
+            when(state_listener) {
+                is ProfileListUIState.Failure -> {
+                    showSnackBar(state_listener.message ?: "Could not fetch the list of leads")
+                }
+                is ProfileListUIState.Success -> {
+                    val profilePresentationList  = state_listener.data?.map {
+                        it.toPresentation()
+                    }
+                    profilePresentationList?.let { leadList ->
+                        val leadChoiceAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_dropdown_item_1line, leadList)
+                        binding.trackLead.setAdapter(leadChoiceAdapter)
+                    }
+                }
+                else -> {
+
+                }
+            }
+        }
     }
 
     private fun collectData() : TrackPresentation {

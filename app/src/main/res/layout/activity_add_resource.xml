@@ -85,8 +85,8 @@
 
                     <ImageView
                         android:id="@+id/add_resource_image"
-                        android:layout_width="200dp"
-                        android:layout_height="200dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:elevation="4dp"
                         android:scaleType="centerCrop"
                         android:src="@drawable/potrait_default"
