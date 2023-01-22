@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.presentation.models.ProfilePresentation
 import com.presentation.models.RegistrationPresentation
@@ -27,6 +28,8 @@ import com.presentation.ui.states.StringUIState
 import com.presentation.ui.utils.UploadFragment
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.FragmentProfileSetupBinding
+import com.test.mmustgdsc.databinding.ProfileAdminPasswordDialogueBinding
+import com.test.mmustgdsc.databinding.TrackLevelInsertionDialogBinding
 
 
 class ProfileSetupFragment : UploadFragment() {
@@ -84,11 +87,12 @@ class ProfileSetupFragment : UploadFragment() {
         }
     }
 
+
     private fun captureData() : RegistrationPresentation {
         val profile = ProfilePresentation(
             imageLink,
             binding.profileFullName.text.toString(),
-            args.profileTItle,
+            args.profileTitle,
             binding.profileProfession.text.toString(),
             binding.profileAbout.text.toString(),
             binding.profileInstagram.text.toString(),
@@ -141,8 +145,8 @@ class ProfileSetupFragment : UploadFragment() {
         binding.loadingText.text = message
     }
 
-    private fun showSnackBar(message : String)  {
-        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
+    private fun showSnackBar(message : String, length: Int = Snackbar.LENGTH_INDEFINITE)  {
+        val snackbar = Snackbar.make(binding.root, message, length)
         snackbar.setAction("Cancel") {
             snackbar.dismiss()
         }

@@ -25,7 +25,7 @@
             android:name="registrationPassword"
             app:argType="string" />
         <argument
-            android:name="profileTItle"
+            android:name="profileTitle"
             app:argType="string"
             android:defaultValue="Member" />
     </fragment>
