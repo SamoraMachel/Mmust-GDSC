@@ -5,18 +5,14 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
 import com.domain.models.ObserverDto
-import com.domain.usecases.FetchSessionUseCase
 import com.domain.usecases.FetchSpecificLeadUseCase
 import com.domain.usecases.TrackUseCase
 import com.presentation.mappers.toPresentation
-import com.presentation.models.ProfilePresentation
-import com.presentation.ui.states.SessionUIState
 import com.presentation.ui.states.SingleProfileUIState
-import com.presentation.ui.states.TrackUIState
+import com.presentation.ui.states.TrackListUIState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +22,7 @@ class SessionViewModel @Inject constructor(
     private val fetchSessionsUseCase : TrackUseCase,
     private val fetchSpecificLeadUseCase: FetchSpecificLeadUseCase
 ) : ViewModel() {
-    private val _sessionDataList : MutableStateFlow<TrackUIState> = MutableStateFlow(TrackUIState.StandBy)
+    private val _sessionDataList : MutableStateFlow<TrackListUIState> = MutableStateFlow(TrackListUIState.StandBy)
     val sessionDataList get() = _sessionDataList.asLiveData()
 
     private val _leadProfile : MutableStateFlow<SingleProfileUIState> = MutableStateFlow(SingleProfileUIState.StandBy)
@@ -39,10 +35,10 @@ class SessionViewModel @Inject constructor(
     private fun getSessions() = viewModelScope.launch {
         fetchSessionsUseCase().collect { observer ->
             when(observer) {
-                is ObserverDto.Loading -> _sessionDataList.value  = TrackUIState.Loading
-                is ObserverDto.Failure -> _sessionDataList.value = TrackUIState.Failure(observer.message)
+                is ObserverDto.Loading -> _sessionDataList.value  = TrackListUIState.Loading
+                is ObserverDto.Failure -> _sessionDataList.value = TrackListUIState.Failure(observer.message)
                 is ObserverDto.Success -> {
-                    _sessionDataList.value = TrackUIState.Success( observer.data?.map { it.toPresentation() })
+                    _sessionDataList.value = TrackListUIState.Success( observer.data?.map { it.toPresentation() })
                 }
             }
         }

@@ -8,4 +8,6 @@ data class Track(
     val lead : String,
     val day : String,
     val timeRange : String,
-)
+) {
+    lateinit var trackId: String
+}

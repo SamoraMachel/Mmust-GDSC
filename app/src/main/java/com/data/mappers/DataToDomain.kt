@@ -46,7 +46,7 @@ fun Registration.toDomain() : RegistrationDto {
 }
 
 fun Track.toDomain() : TrackDto {
-    return TrackDto(
+    val track = TrackDto(
         title,
         description,
         image,
@@ -55,4 +55,6 @@ fun Track.toDomain() : TrackDto {
         day,
         timeRange
     )
+    track.trackId = trackId
+    return track
 }

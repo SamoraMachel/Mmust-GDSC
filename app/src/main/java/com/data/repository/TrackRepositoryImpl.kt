@@ -63,6 +63,47 @@ class TrackRepositoryImpl @Inject constructor(
         awaitClose()
     }
 
+    override suspend fun getTrackByName(name: String): Flow<ObserverDto<TrackDto>> = channelFlow {
+        try {
+            send(ObserverDto.Loading())
+
+            firebaseFirestore.collection(Constants.TRACKS_STRING)
+                .whereEqualTo("title", name)
+                .get()
+                .addOnSuccessListener { snapshot: QuerySnapshot ->
+                    if (snapshot != null && snapshot.documents.isNotEmpty()) {
+                        val document = snapshot.documents[0]
+                        val track = TrackDto(
+                            title = document["title"] as String,
+                            description = document["description"] as String,
+                            image = document["image"] as String,
+                            levels = document["levels"] as Map<String, String>,
+                            lead = document["lead"] as String,
+                            day = document["day"] as String,
+                            timeRange = document["timeRange"] as String
+                        )
+
+                        launch {
+                            send(ObserverDto.Success(track))
+                        }
+                    }
+                }
+                .addOnFailureListener {
+                    launch {
+                        send(ObserverDto.Failure(false, it.message))
+                    }
+                }
+
+        } catch (error : IOException) {
+            send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            Log.d(TAG, "IOError -> getTracks: ${error.message}")
+        } catch (error : Exception) {
+            send(ObserverDto.Failure(false, error.message))
+            Log.d(TAG, "General Error -> getTracks: ${error.message}")
+        }
+        awaitClose()
+    }
+
     override suspend fun getSessions(): Flow<ObserverDto<List<SessionDto>>> = channelFlow {
         val sessionsList : MutableList<SessionDto> = mutableListOf()
 

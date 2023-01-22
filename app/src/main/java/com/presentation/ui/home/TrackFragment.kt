@@ -1,21 +1,17 @@
 package com.presentation.ui.home
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.activityViewModels
-import androidx.lifecycle.whenStarted
 import androidx.recyclerview.widget.GridLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.home.adapters.TracksAdapter
 import com.presentation.ui.home.viewmodels.TrackViewModel
-import com.presentation.ui.states.TrackUIState
-import com.test.mmustgdsc.R
+import com.presentation.ui.states.TrackListUIState
 import com.test.mmustgdsc.databinding.FragmentTrackBinding
-import kotlinx.coroutines.flow.collectLatest
 
 
 class TrackFragment : Fragment() {
@@ -40,15 +36,15 @@ class TrackFragment : Fragment() {
 
         trackViewModel.trackDataList.observe(viewLifecycleOwner) { trackState ->
             when(trackState) {
-                is TrackUIState.Failure -> {
+                is TrackListUIState.Failure -> {
                     binding.tracksLoader.visibility = View.GONE
                     showSnackBar("Could not fetch tracks.\n${trackState.message}")
                 }
-                TrackUIState.Loading -> {
+                TrackListUIState.Loading -> {
                     binding.tracksLoader.visibility = View.VISIBLE
                 }
-                TrackUIState.StandBy -> { Unit }
-                is TrackUIState.Success -> {
+                TrackListUIState.StandBy -> { Unit }
+                is TrackListUIState.Success -> {
                     binding.tracksLoader.visibility = View.GONE
                     val trackAdapter = trackState.data?.let { data -> TracksAdapter(data) }
                     binding.tracksRecyclerView.adapter = trackAdapter

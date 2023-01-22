@@ -1,6 +1,5 @@
 package com.presentation.ui.session.adapters
 
-import android.content.res.ColorStateList
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,15 +8,11 @@ import androidx.lifecycle.viewModelScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.presentation.models.ProfilePresentation
-import com.presentation.models.SessionPresentation
 import com.presentation.models.TrackPresentation
 import com.presentation.ui.session.viewmodels.SessionViewModel
 import com.presentation.ui.states.SingleProfileUIState
-import com.presentation.ui.states.TrackUIState
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.SingleSessionLayoutBinding
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class SessionAdapter(

@@ -2,9 +2,11 @@ package com.presentation.mappers
 
 import com.domain.models.ProfileDto
 import com.domain.models.RegistrationDto
+import com.domain.models.ResourceDto
 import com.domain.models.TrackDto
 import com.presentation.models.ProfilePresentation
 import com.presentation.models.RegistrationPresentation
+import com.presentation.models.ResourcePresentation
 import com.presentation.models.TrackPresentation
 
 fun RegistrationPresentation.toDto(): RegistrationDto {
@@ -23,5 +25,13 @@ fun ProfilePresentation.toDto(): ProfileDto {
 }
 
 fun TrackPresentation.toDto(): TrackDto {
-    return TrackDto(title, description, image, levels, lead, day, timeRange)
+    val track = TrackDto(title, description, image, levels, lead, day, timeRange)
+    track.trackId = trackId
+    return track
+}
+
+fun ResourcePresentation.toDto(): ResourceDto {
+    return ResourceDto(
+        title, link, track_title, description, level, image, isVideo
+    )
 }

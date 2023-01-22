@@ -42,6 +42,7 @@ class TrackActionViewModel @Inject constructor(
         fetchLeads()
     }
 
+
     fun uploadTrack(trackPresentation: TrackPresentation) = viewModelScope.launch {
         addTrackUseCase(trackPresentation.toDto()).collect { state_observer: ObserverDto<Boolean> ->
             when(state_observer) {
@@ -60,7 +61,7 @@ class TrackActionViewModel @Inject constructor(
 
     fun uploadImageToFirebase(context: Context, fileUri: Uri) = viewModelScope.launch {
         val imageFile = FileUtils.getFileFromUri(context, fileUri)
-        uploadToFirebaseUseCase.uploadResourceImage(imageFile).collect { observer ->
+        uploadToFirebaseUseCase.uploadTrackIcons(imageFile).collect { observer ->
             when(observer) {
                 is ObserverDto.Failure -> {
                     _trackUpload.value = BooleanUIState.StandBy

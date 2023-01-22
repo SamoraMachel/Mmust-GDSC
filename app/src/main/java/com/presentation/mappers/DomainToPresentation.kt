@@ -36,9 +36,11 @@ fun EventDto.toPresentation() : EventPresentation {
 }
 
 fun TrackDto.toPresentation() : TrackPresentation {
-    return TrackPresentation(
+    val track = TrackPresentation(
         title, description, image, levels, lead, day, timeRange
     )
+    track.trackId = trackId
+    return track
 }
 
 fun LevelDto.toPresentation() : LevelPresentation {

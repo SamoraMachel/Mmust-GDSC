@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.session.adapters.SessionAdapter
 import com.presentation.ui.session.viewmodels.SessionViewModel
-import com.presentation.ui.states.SessionUIState
-import com.presentation.ui.states.TrackUIState
-import com.test.mmustgdsc.R
+import com.presentation.ui.states.TrackListUIState
 import com.test.mmustgdsc.databinding.FragmentSessionBinding
 
 
@@ -36,13 +34,13 @@ class SessionFragment : Fragment() {
 
         sessionViewModel.sessionDataList.observe(viewLifecycleOwner) { observer ->
             when(observer) {
-                is TrackUIState.Failure -> {
+                is TrackListUIState.Failure -> {
                     binding.sessionLoader.visibility = View.GONE
                     showSnackBar("Could not get session data.\n${observer.message}")
                 }
-                TrackUIState.Loading -> binding.sessionLoader.visibility = View.VISIBLE
-                TrackUIState.StandBy -> Unit
-                is TrackUIState.Success -> {
+                TrackListUIState.Loading -> binding.sessionLoader.visibility = View.VISIBLE
+                TrackListUIState.StandBy -> Unit
+                is TrackListUIState.Success -> {
                     binding.sessionLoader.visibility = View.GONE
                     binding.sessionRecyclerView.adapter = observer.data?.let { data -> SessionAdapter(data, sessionViewModel) }
                 }
