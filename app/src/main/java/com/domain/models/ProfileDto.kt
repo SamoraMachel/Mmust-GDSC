@@ -13,4 +13,6 @@ data class ProfileDto(
     val behance : String?,
     val dribble : String?,
     val interests : List<String>
-)
+) {
+    var userId: String? = null
+}

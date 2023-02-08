@@ -17,4 +17,6 @@ data class ProfilePresentation(
     val behance : String?,
     val dribble : String?,
     val interests : List<String>
-) : Parcelable
+) : Parcelable {
+    var userId: String? = null
+}

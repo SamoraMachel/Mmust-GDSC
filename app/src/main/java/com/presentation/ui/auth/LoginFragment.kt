@@ -1,5 +1,6 @@
 package com.presentation.ui.auth
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,12 +10,15 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.auth.viewmodels.LoginViewModel
 import com.presentation.ui.home.HomeActivity
 import com.presentation.ui.states.AuthenticationUIState
 import com.presentation.ui.states.ProfileCreatedState
+import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.FragmentLoginBinding
+import com.test.mmustgdsc.databinding.ProfileAdminPasswordDialogueBinding
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null
@@ -49,10 +53,46 @@ class LoginFragment : Fragment() {
             }
         }
 
+        binding.adminImageView.setOnClickListener {
+            openAdminPasswordDialogue()
+        }
+
         loginListener()
         checkProfileListener()
         return binding.root
     }
+
+    private fun openAdminPasswordDialogue() {
+        var navigationValue : Boolean = false
+        val dialogue = MaterialAlertDialogBuilder(requireContext(), R.style.RoundShapeTheme)
+        val view = layoutInflater.inflate(R.layout.profile_admin_password_dialogue, null, false)
+        dialogue.setView(view)
+        val _dialogue = dialogue.show()
+
+        val dialogueBinding = ProfileAdminPasswordDialogueBinding.bind(view)
+
+        dialogueBinding.openButton.setOnClickListener {
+            if (checkPassword() && checkEmail()) {
+                navigationValue = navigateToLeadProfileFragment(
+                    binding.loginEmail.text.toString(),
+                    binding.loginPassword.text.toString(),
+                    dialogueBinding.adminPassword.text.toString()
+                )
+
+
+                if (!navigationValue) {
+                    dialogueBinding.adminPassword.setText("")
+                    dialogueBinding.adminPassword.error = "Wrong password!"
+                } else {
+                    _dialogue?.dismiss()
+                }
+            }
+        }
+
+
+    }
+
+
 
     private fun loginListener() {
         viewModel.userLoggedIn.observe(viewLifecycleOwner) { state_listener ->
@@ -128,8 +168,20 @@ class LoginFragment : Fragment() {
         navController.navigate(action)
     }
 
-    private fun showSnackBar(message : String)  {
-        val snackbar = Snackbar.make(binding.root, message, Snackbar.LENGTH_INDEFINITE)
+    private fun navigateToLeadProfileFragment(email: String, password: String, adminPass: String) : Boolean {
+        if (adminPass != "GDSCLead") {
+            showSnackBar("Wrong Password")
+            return false
+        }
+        val navController = findNavController()
+        val action = LoginFragmentDirections.actionLoginFragmentToProfileSetupFragment(email, password)
+        action.profileTitle = "Lead"
+        navController.navigate(action)
+        return true
+    }
+
+    private fun showSnackBar(message : String, length: Int = Snackbar.LENGTH_INDEFINITE)  {
+        val snackbar = Snackbar.make(binding.root, message, length)
         snackbar.setAction("Cancel") {
             snackbar.dismiss()
         }

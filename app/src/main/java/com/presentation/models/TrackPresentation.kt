@@ -12,4 +12,10 @@ data class TrackPresentation(
     val lead : String,
     val day : String,
     val timeRange : String
-) : Parcelable
+) : Parcelable {
+    lateinit var trackId: String
+
+    override fun toString(): String {
+        return title
+    }
+}

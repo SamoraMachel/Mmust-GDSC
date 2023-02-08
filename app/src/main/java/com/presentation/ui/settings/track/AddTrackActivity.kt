@@ -5,6 +5,8 @@ import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModelProvider
@@ -12,8 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
+import com.presentation.mappers.toPresentation
+import com.presentation.models.ProfilePresentation
 import com.presentation.models.TrackPresentation
 import com.presentation.ui.states.BooleanUIState
+import com.presentation.ui.states.ProfileListUIState
 import com.presentation.ui.states.ProgressUIState
 import com.presentation.ui.utils.UploadActivity
 import com.test.mmustgdsc.R
@@ -26,7 +31,8 @@ class AddTrackActivity : UploadActivity() {
     private lateinit var binding : ActivityAddTrackBinding
 
     private val viewModel : TrackActionViewModel by viewModels()
-    private val leadId : String = ""
+    private var leadId : String = ""
+    lateinit var listOfLeads : List<ProfilePresentation>
 
     private lateinit var trackLevelAdapter: TrackLevelAdapter
 
@@ -49,11 +55,95 @@ class AddTrackActivity : UploadActivity() {
             openLevelDialogue()
         }
 
+        binding.trackLead.threshold = 4
+        leadsListListener()
+
+        binding.uploadTrack.setOnClickListener {
+            if (imageToUpload == null) {
+                showSnackBar("Track image has not been selected")
+            } else {
+                viewModel.uploadImageToFirebase(applicationContext, imageToUpload!!)
+            }
+        }
+
         uploadTrackImageListener()
         uploadTrackListener()
     }
 
+    private fun leadsListListener() {
+        viewModel.leadsList.observe(this) { state_listener ->
+            when(state_listener) {
+                is ProfileListUIState.Failure -> {
+                    showSnackBar(state_listener.message ?: "Could not fetch the list of leads")
+                }
+                is ProfileListUIState.Success -> {
+                    state_listener.data?.let {profileList ->
+                        listOfLeads = profileList.map {
+                            it.toPresentation()
+                        }
+                    }
+                    val leadListNames: MutableList<String> = mutableListOf()
+                    state_listener.data?.forEach {
+                        leadListNames.add(it.name)
+                    }
+                    val leadChoiceAdapter = ArrayAdapter(applicationContext, android.R.layout.simple_dropdown_item_1line, leadListNames)
+                    binding.trackLead.setAdapter(leadChoiceAdapter)
+
+                }
+                else -> {
+
+                }
+            }
+        }
+    }
+
+    private fun uploadTrackImageListener() {
+        viewModel.trackImageUploaded.observe(this) { state_listener ->
+            when(state_listener) {
+                is ProgressUIState.Failure -> {
+                    toggleLoadingVisibility(false)
+                    state_listener.message?.let { showSnackBar(it) }
+                }
+                is ProgressUIState.Loading -> {
+                    toggleLoadingVisibility(true, "Uploading Image")
+                }
+                ProgressUIState.StandBy -> {
+
+                }
+                is ProgressUIState.Success -> {
+                    imageLink = state_listener.data.data!!
+                    try {
+                        val trackData = collectData()
+                        uploadTrack(trackData)
+                    } catch (e: Exception) {
+                        e.message?.let { showSnackBar(it) }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun toggleLoadingVisibility(visible : Boolean, message: String? = null) {
+        if(visible) {
+            binding.progressFrameLayout.visibility = View.VISIBLE
+        } else {
+            binding.progressFrameLayout.visibility = View.GONE
+        }
+        binding.progressText.text = message
+    }
+
+    @Throws(Exception::class)
     private fun collectData() : TrackPresentation {
+        listOfLeads.forEach {
+            if (it.name == binding.trackLead.text.toString()) {
+                leadId = it.userId.toString()
+                return@forEach
+            }
+        }
+
+        if (leadId == "") {
+            throw Exception("Lead not selected")
+        }
         return TrackPresentation(
             binding.trackTitle.text.toString(),
             binding.trackDescription.text.toString(),
@@ -84,21 +174,6 @@ class AddTrackActivity : UploadActivity() {
         }
     }
 
-    private fun uploadTrackImageListener() {
-        viewModel.trackImageUploaded.observe(this) { state_listener ->
-            when(state_listener) {
-                is ProgressUIState.Failure -> {
-                    state_listener.message?.let { showSnackBar(it) }
-                }
-                is ProgressUIState.Success -> {
-                    imageLink = state_listener.data.data.toString()
-                }
-                else -> {
-
-                }
-            }
-        }
-    }
 
     fun openLevelDialogue() {
         val dialogue = MaterialAlertDialogBuilder(this, R.style.RoundShapeTheme)

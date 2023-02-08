@@ -12,30 +12,53 @@ import com.presentation.ui.home.ResourceLevelFragmentDirections
 import com.test.mmustgdsc.R
 import com.test.mmustgdsc.databinding.SingleResourceLevelLayoutBinding
 
+
+var color_counter = 0
 class ResourceLevelAdapter(
     private val levels : List<LevelPresentation>,
     private val track : String
 ) : RecyclerView.Adapter<ResourceLevelAdapter.ViewHolder>() {
+
+
+
     class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
         val binding = SingleResourceLevelLayoutBinding.bind(itemView)
+
+        val _colors = arrayListOf(
+            R.color.flat_purple,
+            R.color.flat_yellow,
+            R.color.flat_green
+        )
 
         fun setup(level : LevelPresentation, track: String) {
             binding.levelTitle.text = level.title
             binding.levelDescription.text = level.description
 
-            if(level.title.contains("Beginner")) {
-                binding.levelCard.setCardBackgroundColor(binding.root.resources.getColor(R.color.flat_purple))
-                binding.levelTitle.setTextColor(Color.WHITE)
-                binding.levelDescription.setTextColor(Color.WHITE)
-            } else if(level.title.contains("Intermediate")) {
-                binding.levelCard.setCardBackgroundColor(binding.root.resources.getColor(R.color.flat_yellow))
+            if (color_counter > 2) {
+                color_counter = 0
+            }
+            binding.levelCard.setBackgroundColor(binding.root.resources.getColor(_colors[color_counter]))
+            if (color_counter == 1) {
                 binding.levelTitle.setTextColor(binding.root.resources.getColor(R.color.flat_gray))
                 binding.levelDescription.setTextColor(binding.root.resources.getColor(R.color.flat_gray))
-            } else if(level.title.contains("Expert")) {
-                binding.levelCard.setCardBackgroundColor(binding.root.resources.getColor(R.color.flat_green))
+            } else {
                 binding.levelTitle.setTextColor(Color.WHITE)
                 binding.levelDescription.setTextColor(Color.WHITE)
             }
+
+            color_counter += 1
+//            if(level.title.contains("Beginner")) {
+//                binding.levelCard.setCardBackgroundColor(binding.root.resources.getColor(R.color.flat_purple))
+//
+//            } else if(level.title.contains("Intermediate")) {
+//                binding.levelCard.setCardBackgroundColor(binding.root.resources.getColor(R.color.flat_yellow))
+//                binding.levelTitle.setTextColor(binding.root.resources.getColor(R.color.flat_gray))
+//                binding.levelDescription.setTextColor(binding.root.resources.getColor(R.color.flat_gray))
+//            } else if(level.title.contains("Expert")) {
+//                binding.levelCard.setCardBackgroundColor(binding.root.resources.getColor(R.color.flat_green))
+//                binding.levelTitle.setTextColor(Color.WHITE)
+//                binding.levelDescription.setTextColor(Color.WHITE)
+//            }
 
             binding.levelCard.setOnClickListener {
                 openResource(level, track)

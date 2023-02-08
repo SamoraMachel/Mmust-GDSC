@@ -40,6 +40,7 @@ class ProfileRepositoryImpl @Inject constructor(
                             dribble = document["dribble"] as String?,
                             interests = document["interests"] as List<String>
                         )
+                        profile.userId = document.id
                         profileList.add(profile)
                     }
                     launch {
@@ -82,6 +83,7 @@ class ProfileRepositoryImpl @Inject constructor(
                             dribble = document["dribble"] as String?,
                             interests = document["interests"] as List<String>
                         )
+                        profile.userId = document.id
                         profileList.add(profile)
                     }
                     launch {
@@ -121,6 +123,7 @@ class ProfileRepositoryImpl @Inject constructor(
                         dribble = snapshot["dribble"] as String?,
                         interests = snapshot["interests"] as List<String>
                     )
+                    profile.userId = snapshot.id
 
                     launch {
                         send(ObserverDto.Success(profile))
@@ -162,6 +165,7 @@ class ProfileRepositoryImpl @Inject constructor(
                             dribble = document["dribble"] as String,
                             interests = document["interests"] as List<String>
                         )
+                        profile.userId = document.id
                         profileList.add(profile)
                     }
                     launch {
@@ -204,6 +208,7 @@ class ProfileRepositoryImpl @Inject constructor(
                             dribble = document["dribble"] as String,
                             interests = document["interests"] as List<String>
                         )
+                        profile.userId = document.id
                         profileList.add(profile)
                     }
                     launch {
@@ -246,6 +251,7 @@ class ProfileRepositoryImpl @Inject constructor(
                             dribble = document["dribble"] as String?,
                             interests = document["interests"] as List<String>
                         )
+                        profile.userId = document.id
 
                         launch {
                             send(ObserverDto.Success(profile))
