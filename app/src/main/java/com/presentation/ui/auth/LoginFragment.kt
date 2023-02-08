@@ -1,5 +1,6 @@
 package com.presentation.ui.auth
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -61,23 +62,34 @@ class LoginFragment : Fragment() {
         return binding.root
     }
 
-    fun openAdminPasswordDialogue() {
+    private fun openAdminPasswordDialogue() {
+        var navigationValue : Boolean = false
         val dialogue = MaterialAlertDialogBuilder(requireContext(), R.style.RoundShapeTheme)
         val view = layoutInflater.inflate(R.layout.profile_admin_password_dialogue, null, false)
         dialogue.setView(view)
+        val _dialogue = dialogue.show()
 
         val dialogueBinding = ProfileAdminPasswordDialogueBinding.bind(view)
+
         dialogueBinding.openButton.setOnClickListener {
             if (checkPassword() && checkEmail()) {
-                navigateToLeadProfileFragment(
+                navigationValue = navigateToLeadProfileFragment(
                     binding.loginEmail.text.toString(),
                     binding.loginPassword.text.toString(),
                     dialogueBinding.adminPassword.text.toString()
                 )
+
+
+                if (!navigationValue) {
+                    dialogueBinding.adminPassword.setText("")
+                    dialogueBinding.adminPassword.error = "Wrong password!"
+                } else {
+                    _dialogue?.dismiss()
+                }
             }
         }
 
-        dialogue.show()
+
     }
 
 
@@ -156,15 +168,16 @@ class LoginFragment : Fragment() {
         navController.navigate(action)
     }
 
-    private fun navigateToLeadProfileFragment(email: String, password: String, adminPass: String) {
+    private fun navigateToLeadProfileFragment(email: String, password: String, adminPass: String) : Boolean {
         if (adminPass != "GDSCLead") {
             showSnackBar("Wrong Password")
-            return;
+            return false
         }
         val navController = findNavController()
         val action = LoginFragmentDirections.actionLoginFragmentToProfileSetupFragment(email, password)
         action.profileTitle = "Lead"
         navController.navigate(action)
+        return true
     }
 
     private fun showSnackBar(message : String, length: Int = Snackbar.LENGTH_INDEFINITE)  {

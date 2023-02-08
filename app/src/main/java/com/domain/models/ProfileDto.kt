@@ -14,5 +14,5 @@ data class ProfileDto(
     val dribble : String?,
     val interests : List<String>
 ) {
-    lateinit var userId: String
+    var userId: String? = null
 }

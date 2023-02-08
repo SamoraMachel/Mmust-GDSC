@@ -9,5 +9,4 @@ data class TrackDto(
     val day : String,
     val timeRange : String
 ) {
-    lateinit var trackId: String
 }

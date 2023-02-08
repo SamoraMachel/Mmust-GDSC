@@ -39,7 +39,6 @@ fun TrackDto.toPresentation() : TrackPresentation {
     val track = TrackPresentation(
         title, description, image, levels, lead, day, timeRange
     )
-    track.trackId = trackId
     return track
 }
 

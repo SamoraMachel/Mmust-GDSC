@@ -26,7 +26,6 @@ fun ProfilePresentation.toDto(): ProfileDto {
 
 fun TrackPresentation.toDto(): TrackDto {
     val track = TrackDto(title, description, image, levels, lead, day, timeRange)
-    track.trackId = trackId
     return track
 }
 

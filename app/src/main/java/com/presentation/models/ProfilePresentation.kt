@@ -18,5 +18,5 @@ data class ProfilePresentation(
     val dribble : String?,
     val interests : List<String>
 ) : Parcelable {
-    lateinit var userId: String
+    var userId: String? = null
 }

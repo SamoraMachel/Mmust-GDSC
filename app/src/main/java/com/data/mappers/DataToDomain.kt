@@ -55,6 +55,5 @@ fun Track.toDomain() : TrackDto {
         day,
         timeRange
     )
-    track.trackId = trackId
     return track
 }

@@ -136,7 +136,7 @@ class AddTrackActivity : UploadActivity() {
     private fun collectData() : TrackPresentation {
         listOfLeads.forEach {
             if (it.name == binding.trackLead.text.toString()) {
-                leadId = it.userId
+                leadId = it.userId.toString()
                 return@forEach
             }
         }
