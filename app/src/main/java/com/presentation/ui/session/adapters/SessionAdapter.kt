@@ -11,8 +11,8 @@ import com.presentation.models.ProfilePresentation
 import com.presentation.models.TrackPresentation
 import com.presentation.ui.session.viewmodels.SessionViewModel
 import com.presentation.ui.states.SingleProfileUIState
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.SingleSessionLayoutBinding
+import com.app.mmustgdsc.R
+import com.app.mmustgdsc.databinding.SingleSessionLayoutBinding
 import kotlinx.coroutines.launch
 
 class SessionAdapter(

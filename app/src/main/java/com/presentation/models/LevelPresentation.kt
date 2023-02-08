@@ -7,4 +7,8 @@ import kotlinx.parcelize.Parcelize
 data class LevelPresentation(
     val title : String,
     val description : String
-) : Parcelable
+) : Parcelable {
+    override fun toString(): String {
+        return title
+    }
+}

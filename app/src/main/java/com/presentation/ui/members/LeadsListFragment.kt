@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.members.adapters.MembersAdapter
 import com.presentation.ui.members.viewmodels.MembersViewModel
 import com.presentation.ui.states.MemberUIState
-import com.test.mmustgdsc.databinding.FragmentLeadsListBinding
+import com.app.mmustgdsc.databinding.FragmentLeadsListBinding
 
 
 class LeadsListFragment : Fragment() {

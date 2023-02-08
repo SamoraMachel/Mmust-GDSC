@@ -4,13 +4,12 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.presentation.models.LevelPresentation
 import com.presentation.ui.home.ResourceLevelFragmentDirections
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.SingleResourceLevelLayoutBinding
+import com.app.mmustgdsc.R
+import com.app.mmustgdsc.databinding.SingleResourceLevelLayoutBinding
 
 
 var color_counter = 0

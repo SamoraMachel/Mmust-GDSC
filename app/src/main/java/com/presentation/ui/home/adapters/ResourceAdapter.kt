@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.presentation.models.ResourcePresentation
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.SingleResourceLayoutBinding
+import com.app.mmustgdsc.R
+import com.app.mmustgdsc.databinding.SingleResourceLayoutBinding
 
 class ResourceAdapter(
     private val resources: List<ResourcePresentation>

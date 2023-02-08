@@ -3,15 +3,11 @@ package com.presentation.ui.main
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
-import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.lifecycleScope
 import com.presentation.ui.home.HomeActivity
 import com.presentation.ui.main.viewmodels.MainActivityViewModel
-import com.test.mmustgdsc.R
+import com.app.mmustgdsc.R
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class SplashScreenActivity : AppCompatActivity() {

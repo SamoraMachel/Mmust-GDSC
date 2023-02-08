@@ -3,7 +3,7 @@ package com.presentation.ui.home
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.activity.viewModels
+import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
@@ -12,8 +12,8 @@ import com.presentation.ui.home.viewmodels.HomeActivityViewModel
 import com.presentation.ui.home.viewmodels.ProfileLinkState
 import com.presentation.ui.home.viewmodels.TitleState
 import com.presentation.ui.settings.ManagementActivity
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.ActivityHomeBinding
+import com.app.mmustgdsc.R
+import com.app.mmustgdsc.databinding.ActivityHomeBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -38,6 +38,8 @@ class HomeActivity : AppCompatActivity() {
                         .load(state_listener.link)
                         .circleCrop()
                         .into(binding.userProfileImage)
+
+                    Toast.makeText(applicationContext, state_listener.link, Toast.LENGTH_LONG).show()
                 }
                 else -> {
 
@@ -49,9 +51,9 @@ class HomeActivity : AppCompatActivity() {
             when(state_listener) {
                 is TitleState.Completed -> {
                     settingScreenListener()
-//                    if (state_listener.title.equals("Lead")) {
-//                        settingScreenListener()
-//                    }
+                    if (state_listener.title.equals("Lead")) {
+                        settingScreenListener()
+                    }
                 }
                 else -> {
 

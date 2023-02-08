@@ -1,22 +1,15 @@
 package com.presentation.ui.auth
 
-import android.app.Activity
 import android.content.Intent
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Message
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
-import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.google.android.material.snackbar.Snackbar
 import com.presentation.models.ProfilePresentation
 import com.presentation.models.RegistrationPresentation
@@ -24,12 +17,8 @@ import com.presentation.ui.auth.viewmodels.LoginViewModel
 import com.presentation.ui.home.HomeActivity
 import com.presentation.ui.states.AuthenticationUIState
 import com.presentation.ui.states.ProgressUIState
-import com.presentation.ui.states.StringUIState
 import com.presentation.ui.utils.UploadFragment
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.FragmentProfileSetupBinding
-import com.test.mmustgdsc.databinding.ProfileAdminPasswordDialogueBinding
-import com.test.mmustgdsc.databinding.TrackLevelInsertionDialogBinding
+import com.app.mmustgdsc.databinding.FragmentProfileSetupBinding
 
 
 class ProfileSetupFragment : UploadFragment() {

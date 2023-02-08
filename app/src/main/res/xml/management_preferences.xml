@@ -12,7 +12,7 @@
             app:iconSpaceReserved="false"
             app:key="add_track"
             app:title="Add Track">
-            <intent android:targetPackage="com.test.mmustgdsc"
+            <intent android:targetPackage="com.app.mmustgdsc"
                 android:targetClass="com.presentation.ui.settings.track.AddTrackActivity" />
         </Preference>
 
@@ -22,7 +22,7 @@
             app:iconSpaceReserved="false"
             app:key="add_resource"
             app:title="Add Resource">
-            <intent android:targetPackage="com.test.mmustgdsc"
+            <intent android:targetPackage="com.app.mmustgdsc"
                 android:targetClass="com.presentation.ui.settings.resource.AddResourceActivity" />
         </Preference>
 

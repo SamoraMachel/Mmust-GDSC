@@ -8,8 +8,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.presentation.models.ProfilePresentation
 import com.presentation.ui.members.MembersFragmentDirections
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.SingleMemberLayoutBinding
+import com.app.mmustgdsc.R
+import com.app.mmustgdsc.databinding.SingleMemberLayoutBinding
 
 class MembersAdapter(
     private val members : List<ProfilePresentation>

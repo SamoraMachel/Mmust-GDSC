@@ -100,7 +100,7 @@ LoginViewModel @Inject constructor(
         }
     }
 
-    fun checkProfileCreated(email : String) = viewModelScope.launch {
+    private fun checkProfileCreated(email : String) = viewModelScope.launch {
         profileEmailUseCase(email).collect { observer ->
             when(observer) {
                 is ObserverDto.Failure -> _profileCreated.value = ProfileCreatedState.Failure(observer.message)
@@ -115,7 +115,6 @@ LoginViewModel @Inject constructor(
                     } else {
                         _profileCreated.value = ProfileCreatedState.Success(false)
                         saveProfileUserDataStore(false)
-
                     }
                 }
             }

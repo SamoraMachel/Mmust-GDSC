@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.FragmentEventBinding
+import com.app.mmustgdsc.databinding.FragmentEventBinding
 
 
 class EventFragment : Fragment() {

@@ -1,15 +1,11 @@
 package com.presentation.ui.settings.track
 
-import android.content.Context
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
@@ -21,9 +17,9 @@ import com.presentation.ui.states.BooleanUIState
 import com.presentation.ui.states.ProfileListUIState
 import com.presentation.ui.states.ProgressUIState
 import com.presentation.ui.utils.UploadActivity
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.ActivityAddTrackBinding
-import com.test.mmustgdsc.databinding.TrackLevelInsertionDialogBinding
+import com.app.mmustgdsc.R
+import com.app.mmustgdsc.databinding.ActivityAddTrackBinding
+import com.app.mmustgdsc.databinding.TrackLevelInsertionDialogBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint

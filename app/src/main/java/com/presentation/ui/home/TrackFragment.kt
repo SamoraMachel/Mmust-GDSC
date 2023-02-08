@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.home.adapters.TracksAdapter
 import com.presentation.ui.home.viewmodels.TrackViewModel
 import com.presentation.ui.states.TrackListUIState
-import com.test.mmustgdsc.databinding.FragmentTrackBinding
+import com.app.mmustgdsc.databinding.FragmentTrackBinding
 
 
 class TrackFragment : Fragment() {

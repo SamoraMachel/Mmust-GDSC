@@ -7,13 +7,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.widget.Toolbar
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.navigation.fragment.navArgs
 import com.bumptech.glide.Glide
 import com.google.android.material.chip.Chip
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.FragmentProfileBinding
+import com.app.mmustgdsc.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null

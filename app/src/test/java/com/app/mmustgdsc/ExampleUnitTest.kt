@@ -1,4 +1,4 @@
-package com.test.mmustgdsc
+package com.app.mmustgdsc
 
 import org.junit.Test
 

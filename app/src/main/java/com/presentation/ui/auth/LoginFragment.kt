@@ -1,6 +1,5 @@
 package com.presentation.ui.auth
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -16,9 +15,9 @@ import com.presentation.ui.auth.viewmodels.LoginViewModel
 import com.presentation.ui.home.HomeActivity
 import com.presentation.ui.states.AuthenticationUIState
 import com.presentation.ui.states.ProfileCreatedState
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.FragmentLoginBinding
-import com.test.mmustgdsc.databinding.ProfileAdminPasswordDialogueBinding
+import com.app.mmustgdsc.R
+import com.app.mmustgdsc.databinding.FragmentLoginBinding
+import com.app.mmustgdsc.databinding.ProfileAdminPasswordDialogueBinding
 
 class LoginFragment : Fragment() {
     private var _binding: FragmentLoginBinding? = null

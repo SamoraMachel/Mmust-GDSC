@@ -1,20 +1,22 @@
 package com.presentation.ui.settings.resource
 
 import android.net.Uri
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.ArrayAdapter
 import androidx.activity.viewModels
 import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
+import com.presentation.models.LevelPresentation
 import com.presentation.models.ResourcePresentation
+import com.presentation.models.TrackPresentation
 import com.presentation.ui.states.BooleanUIState
 import com.presentation.ui.states.ProgressUIState
 import com.presentation.ui.states.TrackListUIState
 import com.presentation.ui.utils.UploadActivity
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.ActivityAddResourceBinding
+import com.app.mmustgdsc.databinding.ActivityAddResourceBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,13 +24,14 @@ class AddResourceActivity : UploadActivity() {
     private lateinit var binding : ActivityAddResourceBinding
 
     private val viewModel: AddResourceViewModel by viewModels()
+    private lateinit var listOfTracks : List<TrackPresentation>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddResourceBinding.inflate(layoutInflater)
-        setContentView(R.layout.activity_add_resource)
+        setContentView(binding.root)
 
-        binding.addResourceImageEdit.setOnClickListener {
+        binding.addResourceImageSelect.setOnClickListener {
             requestGallery()
         }
 
@@ -42,6 +45,8 @@ class AddResourceActivity : UploadActivity() {
 
         uploadResourceListener()
         imageUploadListener()
+        trackListListener()
+        levelListener()
     }
 
     override fun previewImage(uri: Uri) {
@@ -68,20 +73,47 @@ class AddResourceActivity : UploadActivity() {
                 is TrackListUIState.Failure -> {
                     showSnackBar(stateListener.message.toString())
                 }
-                TrackListUIState.Loading -> {}
-                TrackListUIState.StandBy -> {}
                 is TrackListUIState.Success -> {
-
-                    binding.addResourceTrack.setAdapter(
-                        ArrayAdapter(applicationContext,
-                            android.R.layout.simple_dropdown_item_1line,
-                            stateListener.data ?: listOf()
-                        )
+                    listOfTracks = stateListener.data ?: listOf()
+                    val resourceAdapter = ArrayAdapter(applicationContext,
+                        android.R.layout.simple_dropdown_item_1line, listOfTracks
                     )
+                    binding.addResourceTrack.setAdapter(resourceAdapter)
+                }
+                else -> {
+
                 }
             }
-
         }
+    }
+
+    private fun levelListener() {
+        binding.addResourceTrack.addTextChangedListener(object : TextWatcher{
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+            }
+
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
+                setLevelAdapter(p0.toString())
+            }
+
+            override fun afterTextChanged(p0: Editable?) {
+            }
+
+        })
+
+    }
+
+    private fun setLevelAdapter(track: String) {
+        var listOfLevels : List<LevelPresentation> = listOf()
+        for(_track in listOfTracks) {
+            if(_track.title == binding.addResourceTrack.text.toString()) {
+                listOfLevels = _track.levels.map {
+                    LevelPresentation(it.component1(), it.component2())
+                }
+            }
+        }
+        val adapter = ArrayAdapter(applicationContext, android.R.layout.simple_dropdown_item_1line, listOfLevels)
+        binding.addResourceLevel.setAdapter(adapter)
     }
 
     @Throws(Exception::class)
@@ -125,8 +157,7 @@ class AddResourceActivity : UploadActivity() {
                 }
                 BooleanUIState.StandBy -> {}
                 is BooleanUIState.Success -> {
-                    toggleLoadingVisibility(false)
-                    showSnackBar("Resource Uploaded Successfully", Snackbar.LENGTH_SHORT)
+                    finish()
                 }
             }
         }

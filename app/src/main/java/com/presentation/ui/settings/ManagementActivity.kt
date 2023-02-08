@@ -3,7 +3,7 @@ package com.presentation.ui.settings
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.preference.PreferenceFragmentCompat
-import com.test.mmustgdsc.R
+import com.app.mmustgdsc.R
 
 class ManagementActivity : AppCompatActivity() {
 

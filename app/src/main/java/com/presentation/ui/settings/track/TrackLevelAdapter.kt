@@ -5,8 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.SingleResourceLevelLayoutBinding
+import com.app.mmustgdsc.R
+import com.app.mmustgdsc.databinding.SingleResourceLevelLayoutBinding
 
 class TrackLevelAdapter(private var tracks : List<Pair<String, String>>) : RecyclerView.Adapter<TrackLevelAdapter.TrackLevelViewHolder>() {
     class TrackLevelViewHolder(itemView : View) : ViewHolder(itemView) {

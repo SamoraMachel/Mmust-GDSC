@@ -11,8 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.members.adapters.MembersAdapter
 import com.presentation.ui.members.viewmodels.MembersViewModel
 import com.presentation.ui.states.MemberUIState
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.FragmentMemberListBinding
+import com.app.mmustgdsc.databinding.FragmentMemberListBinding
 
 
 class MemberListFragment : Fragment() {

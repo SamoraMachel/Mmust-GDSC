@@ -11,7 +11,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.session.adapters.SessionAdapter
 import com.presentation.ui.session.viewmodels.SessionViewModel
 import com.presentation.ui.states.TrackListUIState
-import com.test.mmustgdsc.databinding.FragmentSessionBinding
+import com.app.mmustgdsc.databinding.FragmentSessionBinding
 
 
 class SessionFragment : Fragment() {

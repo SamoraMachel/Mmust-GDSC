@@ -12,12 +12,10 @@ import com.bumptech.glide.Glide
 import com.google.android.material.snackbar.Snackbar
 import com.presentation.models.LevelPresentation
 import com.presentation.models.ProfilePresentation
-import com.presentation.models.TrackPresentation
 import com.presentation.ui.home.adapters.ResourceLevelAdapter
 import com.presentation.ui.home.viewmodels.ResourceViewModel
 import com.presentation.ui.states.SingleProfileUIState
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.FragmentResourceLevelBinding
+import com.app.mmustgdsc.databinding.FragmentResourceLevelBinding
 
 
 class ResourceLevelFragment : Fragment() {

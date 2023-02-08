@@ -2,14 +2,12 @@ package com.presentation.ui.main
 
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.presentation.ui.home.HomeActivity
 import com.presentation.ui.main.viewmodels.MainActivityViewModel
-import com.test.mmustgdsc.databinding.ActivityMainBinding
+import com.app.mmustgdsc.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.runBlocking
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {

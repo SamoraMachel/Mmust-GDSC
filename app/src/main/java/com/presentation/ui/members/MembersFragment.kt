@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.tabs.TabLayout
 import com.presentation.ui.members.adapters.TabAdapter
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.FragmentMembersBinding
-import com.test.mmustgdsc.databinding.FragmentTrackBinding
+import com.app.mmustgdsc.databinding.FragmentMembersBinding
 
 class MembersFragment : Fragment() {
     private var _binding : FragmentMembersBinding? = null

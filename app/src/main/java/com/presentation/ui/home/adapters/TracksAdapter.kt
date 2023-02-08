@@ -1,22 +1,17 @@
 package com.presentation.ui.home.adapters
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.view.animation.RotateAnimation
 import androidx.core.content.ContextCompat
-import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.presentation.models.TrackPresentation
 import com.presentation.ui.home.TrackFragmentDirections
-import com.test.mmustgdsc.R
-import com.test.mmustgdsc.databinding.SingleTrackLayoutBinding
-import kotlin.random.Random
-import kotlin.random.nextInt
+import com.app.mmustgdsc.R
+import com.app.mmustgdsc.databinding.SingleTrackLayoutBinding
 
 
 class TracksAdapter(private val tracks : List<TrackPresentation>) : RecyclerView.Adapter<TracksAdapter.ViewHolder>(){

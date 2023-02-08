@@ -12,7 +12,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.presentation.ui.home.adapters.ResourceAdapter
 import com.presentation.ui.home.viewmodels.ResourceViewModel
 import com.presentation.ui.states.ResourceUIState
-import com.test.mmustgdsc.databinding.FragmentResourceBinding
+import com.app.mmustgdsc.databinding.FragmentResourceBinding
 
 class ResourceFragment : Fragment() {
 
