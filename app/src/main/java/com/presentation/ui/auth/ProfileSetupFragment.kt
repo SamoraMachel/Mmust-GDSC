@@ -60,7 +60,7 @@ class ProfileSetupFragment : UploadFragment() {
         viewModel.userRegistered.observe(viewLifecycleOwner) { state_listener ->
             when(state_listener) {
                 is AuthenticationUIState.Failure -> {
-      600dp              state_listener.message?.let { showSnackBar(it) }
+                    state_listener.message?.let { showSnackBar(it) }
                     toggleLoadingVisibility(false)
                 }
                 AuthenticationUIState.Loading -> {
