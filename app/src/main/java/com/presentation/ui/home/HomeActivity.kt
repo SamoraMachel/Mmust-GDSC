@@ -50,7 +50,6 @@ class HomeActivity : AppCompatActivity() {
         homeViewModel.userTitle.observe(this) { state_listener ->
             when(state_listener) {
                 is TitleState.Completed -> {
-                    settingScreenListener()
                     if (state_listener.title.equals("Lead")) {
                         settingScreenListener()
                     }

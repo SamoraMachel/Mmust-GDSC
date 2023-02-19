@@ -44,8 +44,10 @@ class ProfileSetupFragment : UploadFragment() {
         }
 
         binding.buttonProceed.setOnClickListener {
-            imageToUpload?.let {
-                viewModel.uploadProfileImage(requireContext(), it)
+            if (imageToUpload != null) {
+                viewModel.uploadProfileImage(requireContext(), imageToUpload!!)
+            } else {
+                showSnackBar("Profile photo not selected", Snackbar.LENGTH_SHORT)
             }
         }
 
@@ -58,7 +60,7 @@ class ProfileSetupFragment : UploadFragment() {
         viewModel.userRegistered.observe(viewLifecycleOwner) { state_listener ->
             when(state_listener) {
                 is AuthenticationUIState.Failure -> {
-                    state_listener.message?.let { showSnackBar(it) }
+      600dp              state_listener.message?.let { showSnackBar(it) }
                     toggleLoadingVisibility(false)
                 }
                 AuthenticationUIState.Loading -> {
