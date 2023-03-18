@@ -58,8 +58,10 @@ class FirebaseUtilsFunctionsImpl @Inject constructor(
                 }
         }  catch (error : IOException) {
             send(ObserverDto.Failure(true, "Network Error: Kindly check your internet"))
+            error.printStackTrace()
         } catch (error : Exception) {
             send(ObserverDto.Failure(false, error.message))
+            error.printStackTrace()
         }
         awaitClose()
     }

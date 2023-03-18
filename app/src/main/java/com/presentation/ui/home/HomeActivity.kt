@@ -39,7 +39,6 @@ class HomeActivity : AppCompatActivity() {
                         .circleCrop()
                         .into(binding.userProfileImage)
 
-                    Toast.makeText(applicationContext, state_listener.link, Toast.LENGTH_LONG).show()
                 }
                 else -> {
 

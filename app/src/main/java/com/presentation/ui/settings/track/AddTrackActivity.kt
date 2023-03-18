@@ -76,7 +76,7 @@ class AddTrackActivity : UploadActivity() {
                     state_listener.data?.let {profileList ->
                         listOfLeads = profileList.map {
                             it.toPresentation()
-                        }
+                        } 
                     }
                     val leadListNames: MutableList<String> = mutableListOf()
                     state_listener.data?.forEach {
